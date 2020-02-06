@@ -16,6 +16,12 @@ variables:
 steps:
 
 # add Sonar Cloud prepare task
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'whatyougotSonar'
+    organization: 'whatyougotsonar'
+    scannerMode: 'MSBuild'
+    projectKey: 'whatyougotapp'
 
 # add dot net build script
 - script:
@@ -25,9 +31,13 @@ steps:
 
 # add dot net test script
 
-# add Sonar Cloud publish task
-
 # add Sonar Cloud analyze task
+- task: SonarCloudAnalyze@1
+
+# add Sonar Cloud publish task
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 
 # add .Net Core publish task
 
