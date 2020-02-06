@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WhatYouGot.DataAccess
+namespace WhatYouGot.Library
 {
     public class Class1
     {

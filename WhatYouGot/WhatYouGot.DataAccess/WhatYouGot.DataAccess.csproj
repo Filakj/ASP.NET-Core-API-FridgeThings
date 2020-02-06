@@ -16,4 +16,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WhatYouGot.Library\WhatYouGot.Library.csproj" />
+  </ItemGroup>
+
 </Project>
