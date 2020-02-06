@@ -12,6 +12,7 @@ pool:
 variables:
   buildConfiguration: 'Release'
   pathToSolution: 'WhatYouGot/'
+  pathToTest: 'WhatYouGot/WhatYouGot.Test'
 
 steps:
 
@@ -30,6 +31,20 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 
 # add dot net test script
+- script: dotnet test
+    --configuration $(buildConfiguration)
+    --logger trx
+    --no-build
+    --results-directory $(Build.ArtifactStagingDirectory)/test/
+    /p:CollectCoverage=true
+  workingDirectory: $(pathToSolution)
+  displayName: 'dotnet test'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '$(pathToTest)'
+    workingDirectory: '$(pathToSolution)'
 
 # add Sonar Cloud analyze task
 - task: SonarCloudAnalyze@1
