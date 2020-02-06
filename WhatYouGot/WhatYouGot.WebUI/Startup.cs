@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WhatYouGot.DataAccess.Entities;
 
 namespace WhatYouGot.WebUI
 {
@@ -23,6 +25,14 @@ namespace WhatYouGot.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Looks for connection string from one of the .json files
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            // Adds dependency to the controller to use DB
+            services.AddDbContext<whatyougotDBContext>(options =>
+                options.UseSqlServer(connectionString));
+
+
             services.AddControllersWithViews();
         }
 
