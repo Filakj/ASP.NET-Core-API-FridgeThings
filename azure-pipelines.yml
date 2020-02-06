@@ -40,11 +40,25 @@ steps:
     pollingTimeoutSec: '300'
 
 # add .Net Core publish task
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    zipAfterPublish: true
+    arguments: '--configuration $(buildConfiguration)'
+    workingDirectory: '$(pathToSolution)'
+  displayName: 'dotnet publish + zip'
 
 ############ CI ends #############
 
 ############ CDevelopment starts ##########
 
 # add Azure Web App task
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure subscription 1(6701e12e-66a1-4ee7-b304-8f8292024374)'
+    appType: 'webAppLinux'
+    appName: 'whatyougot'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
 ############ CDevelopment ends ###########
