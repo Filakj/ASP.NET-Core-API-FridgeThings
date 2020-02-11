@@ -32,7 +32,7 @@ create table Ingredient (
 	RecipeId int not null, 
 	ImageURL varchar(max) not null,
 	IngredientName varchar(max) not null, 
-	Ammount decimal not null, 
+	Amount decimal not null, 
 	Unit varchar(max) not null
 )
 
@@ -42,3 +42,4 @@ create table Instruction(
 	StepNumber int not null, 
 	StepDescription varchar(max) not null
 )
+

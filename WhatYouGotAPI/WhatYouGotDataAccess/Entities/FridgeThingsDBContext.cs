@@ -56,7 +56,7 @@ namespace WhatYouGotDataAccess.Entities
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Ammount).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.Amount).HasColumnType("decimal(18, 0)");
 
                 entity.Property(e => e.ImageUrl)
                     .IsRequired()
