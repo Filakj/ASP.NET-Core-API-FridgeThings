@@ -56,7 +56,11 @@ namespace WhatYouGotDataAccess.Entities
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
+<<<<<<< HEAD
                 entity.Property(e => e.Ammount).HasColumnType("decimal(18, 0)");
+=======
+                entity.Property(e => e.Amount).HasColumnType("decimal(18, 0)");
+>>>>>>> AddLibProj
 
                 entity.Property(e => e.ImageUrl)
                     .IsRequired()

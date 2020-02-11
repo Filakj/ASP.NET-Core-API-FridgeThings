@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace WhatYouGotDataAccess.Entities
+namespace WhatYouGotLibrary.Models
 {
-    public partial class Ingredient
+    public class Ingredient
     {
         public int Id { get; set; }
         public int RecipeId { get; set; }
