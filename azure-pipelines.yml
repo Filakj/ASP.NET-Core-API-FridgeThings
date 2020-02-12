@@ -11,18 +11,17 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  pathToSolution: 'WhatYouGot/'
+  pathToSolution: 'WhatYouGotAPI/'
   pathToTest: 'WhatYouGot/WhatYouGot.Test'
 
 steps:
-
-# add Sonar Cloud prepare task
+# Sonar Cloud Prepare 
 - task: SonarCloudPrepare@1
   inputs:
-    SonarCloud: 'whatyougotSonar'
-    organization: 'whatyougotsonar'
+    SonarCloud: 'Fridge Things Api SonarCloud'
+    organization: 'fridge'
     scannerMode: 'MSBuild'
-    projectKey: 'whatyougotapp'
+    projectKey: 'fridgethingsapi'
 
 # add dot net build script
 - script:
@@ -30,21 +29,6 @@ steps:
   workingDirectory: $(pathToSolution)
   displayName: 'dotnet build $(buildConfiguration)'
 
-# add dot net test script
-- script: dotnet test
-    --configuration $(buildConfiguration)
-    --logger trx
-    --no-build
-    --results-directory $(Build.ArtifactStagingDirectory)/test/
-    /p:CollectCoverage=true
-  workingDirectory: $(pathToSolution)
-  displayName: 'dotnet test'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '$(pathToTest)'
-    workingDirectory: '$(pathToSolution)'
 
 # add Sonar Cloud analyze task
 - task: SonarCloudAnalyze@1
@@ -64,16 +48,14 @@ steps:
     workingDirectory: '$(pathToSolution)'
   displayName: 'dotnet publish + zip'
 
-############ CI ends #############
+
 
 ############ CDevelopment starts ##########
-
-# add Azure Web App task
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'Azure subscription 1(6701e12e-66a1-4ee7-b304-8f8292024374)'
+    azureSubscription: 'Azure Pass - Sponsorship(2)(c4b7b3c1-4c5b-4915-a5c3-339b8626fbb3)'
     appType: 'webAppLinux'
-    appName: 'whatyougot'
+    appName: 'FridgeThingsAPI'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-
+    
 ############ CDevelopment ends ###########
