@@ -72,12 +72,13 @@ namespace WhatYouGotAPI
 
 
 
-            /*
+            
             services.AddCors(options =>
             {
                 options.AddPolicy(AllMyOrigins, b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
-            */
+            
+            /*
 
             
             services.AddCors(options =>
@@ -93,7 +94,7 @@ namespace WhatYouGotAPI
                     .AllowAnyHeader();
                 });
             });
-
+            */
             
 
             }
