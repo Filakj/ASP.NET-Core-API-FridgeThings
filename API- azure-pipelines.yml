@@ -1,0 +1,79 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  pathToSolution: 'WhatYouGot/'
+  pathToTest: 'WhatYouGot/WhatYouGot.Test'
+
+steps:
+
+# add Sonar Cloud prepare task
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'whatyougotSonar'
+    organization: 'whatyougotsonar'
+    scannerMode: 'MSBuild'
+    projectKey: 'whatyougotapp'
+
+# add dot net build script
+- script:
+    dotnet build --configuration $(buildConfiguration)
+  workingDirectory: $(pathToSolution)
+  displayName: 'dotnet build $(buildConfiguration)'
+
+# add dot net test script
+- script: dotnet test
+    --configuration $(buildConfiguration)
+    --logger trx
+    --no-build
+    --results-directory $(Build.ArtifactStagingDirectory)/test/
+    /p:CollectCoverage=true
+  workingDirectory: $(pathToSolution)
+  displayName: 'dotnet test'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '$(pathToTest)'
+    workingDirectory: '$(pathToSolution)'
+
+# add Sonar Cloud analyze task
+- task: SonarCloudAnalyze@1
+
+# add Sonar Cloud publish task
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
+# add .Net Core publish task
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    zipAfterPublish: true
+    arguments: '--configuration $(buildConfiguration)'
+    workingDirectory: '$(pathToSolution)'
+  displayName: 'dotnet publish + zip'
+
+############ CI ends #############
+
+############ CDevelopment starts ##########
+
+# add Azure Web App task
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure subscription 1(6701e12e-66a1-4ee7-b304-8f8292024374)'
+    appType: 'webAppLinux'
+    appName: 'whatyougot'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
+############ CDevelopment ends ###########
