@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WhatYouGotDataAccess.Entities;
+using WhatYouGotLibrary.Models;
+using WhatYouGotLibrary.Interfaces;
 
 namespace WhatYouGotAPI.Controllers
 {
@@ -13,111 +14,99 @@ namespace WhatYouGotAPI.Controllers
     [ApiController]
     public class RecipesController : ControllerBase
     {
-        private readonly FridgeThingsDBContext _context;
+        private readonly IRecipeRepo _recipeRepo;
 
-        public RecipesController(FridgeThingsDBContext context)
+        public RecipesController(IRecipeRepo recipeRepo)
         {
-            _context = context;
+            _recipeRepo = recipeRepo;
         }
 
         // GET: api/Recipes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipe()
+        public IEnumerable<Recipe> GetRecipe()
         {
-            return await _context.Recipe.ToListAsync();
+            IEnumerable<Recipe> recipes = _recipeRepo.GetRecipes();
+
+            if (recipes != null)
+            {
+                return recipes.ToList();
+            }
+            return null;
+            
         }
 
         // GET: api/Recipes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Recipe>> GetRecipe(int id)
+        public IActionResult GetRecipe(int id)
         {
-            var recipe = await _context.Recipe.FindAsync(id);
-
-            if (recipe == null)
+            if (!RecipeExists(id))
             {
                 return NotFound();
             }
+            
+            Recipe recipe = _recipeRepo.GetRecipeById(id);
 
-            return recipe;
+            return Ok(recipe);
         }
 
         // PUT: api/Recipes/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRecipe(int id, Recipe recipe)
+        public IActionResult PutRecipe(int id, Recipe recipe)
         {
             if (id != recipe.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(recipe).State = EntityState.Modified;
-
-            try
+            if (!RecipeExists(id))
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RecipeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
+            _recipeRepo.UpdateRecipe(recipe);
+            _recipeRepo.SaveChanges();
+            
             return NoContent();
+
         }
 
         // POST: api/Recipes
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Recipe>> PostRecipe(Recipe recipe)
+        public IActionResult PostRecipe(Recipe recipe)
         {
-            _context.Recipe.Add(recipe);
-            try
+            if (RecipeExists(recipe.Id))
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (RecipeExists(recipe.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                return Conflict();
             }
 
-            return CreatedAtAction("GetRecipe", new { id = recipe.Id }, recipe);
+            _recipeRepo.AddRecipe(recipe);
+            _recipeRepo.SaveChanges();
+
+            return CreatedAtAction(nameof(GetRecipe), new { id = recipe.Id }, recipe);
         }
 
         // DELETE: api/Recipes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Recipe>> DeleteRecipe(int id)
+        public IActionResult DeleteRecipe(int id)
         {
-            var recipe = await _context.Recipe.FindAsync(id);
-            if (recipe == null)
+            if (!RecipeExists(id))
             {
                 return NotFound();
             }
 
-            _context.Recipe.Remove(recipe);
-            await _context.SaveChangesAsync();
+            _recipeRepo.DeleteRecipeById(id);
+            _recipeRepo.SaveChanges();
 
-            return recipe;
+            return Content($"Recipe with id: {id} has been deleted.");
         }
 
         private bool RecipeExists(int id)
         {
-            return _context.Recipe.Any(e => e.Id == id);
+            return _recipeRepo.RecipeExists(id);
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace WhatYouGotDataAccess
 {
-    public class Mapper
+    public static class Mapper
     {
-        public Entities.Account Map(WhatYouGotLibrary.Models.Account account)
+        public static Entities.Account Map(WhatYouGotLibrary.Models.Account account)
         {
             return new Entities.Account
             {
@@ -19,7 +19,7 @@ namespace WhatYouGotDataAccess
             };
         }
 
-        public WhatYouGotLibrary.Models.Account Map(Entities.Account account)
+        public static WhatYouGotLibrary.Models.Account Map(Entities.Account account)
         {
             return new WhatYouGotLibrary.Models.Account
             {
@@ -32,7 +32,7 @@ namespace WhatYouGotDataAccess
             };
         }
 
-        public Entities.Favorite Map(WhatYouGotLibrary.Models.Favorite favorite)
+        public static Entities.Favorite Map(WhatYouGotLibrary.Models.Favorite favorite)
         {
             return new Entities.Favorite
             {
@@ -42,7 +42,7 @@ namespace WhatYouGotDataAccess
             };
         }
 
-        public WhatYouGotLibrary.Models.Favorite Map(Entities.Favorite favorite)
+        public static WhatYouGotLibrary.Models.Favorite Map(Entities.Favorite favorite)
         {
             return new WhatYouGotLibrary.Models.Favorite
             {
@@ -52,7 +52,7 @@ namespace WhatYouGotDataAccess
             };
         }
 
-        public Entities.Ingredient Map(WhatYouGotLibrary.Models.Ingredient ingredient)
+        public static Entities.Ingredient Map(WhatYouGotLibrary.Models.Ingredient ingredient)
         {
             return new Entities.Ingredient
             {
@@ -65,7 +65,7 @@ namespace WhatYouGotDataAccess
             };
         }
 
-        public WhatYouGotLibrary.Models.Ingredient Map(Entities.Ingredient ingredient)
+        public static WhatYouGotLibrary.Models.Ingredient Map(Entities.Ingredient ingredient)
         {
             return new WhatYouGotLibrary.Models.Ingredient
             {
@@ -78,7 +78,7 @@ namespace WhatYouGotDataAccess
             };
         }
 
-        public Entities.Instruction Map(WhatYouGotLibrary.Models.Instruction instruction)
+        public static Entities.Instruction Map(WhatYouGotLibrary.Models.Instruction instruction)
         {
             return new Entities.Instruction
             {
@@ -89,7 +89,7 @@ namespace WhatYouGotDataAccess
             };
         }
 
-        public WhatYouGotLibrary.Models.Instruction Map(Entities.Instruction instruction)
+        public static WhatYouGotLibrary.Models.Instruction Map(Entities.Instruction instruction)
         {
             return new WhatYouGotLibrary.Models.Instruction
             {
@@ -100,7 +100,7 @@ namespace WhatYouGotDataAccess
             };
         }
 
-        public Entities.Recipe Map(WhatYouGotLibrary.Models.Recipe recipe)
+        public static Entities.Recipe Map(WhatYouGotLibrary.Models.Recipe recipe)
         {
             return new Entities.Recipe
             {
@@ -110,7 +110,7 @@ namespace WhatYouGotDataAccess
             };
         }
 
-        public WhatYouGotLibrary.Models.Recipe Map(Entities.Recipe recipe)
+        public static WhatYouGotLibrary.Models.Recipe Map(Entities.Recipe recipe)
         {
             return new WhatYouGotLibrary.Models.Recipe
             {
@@ -120,7 +120,7 @@ namespace WhatYouGotDataAccess
             };
         }
 
-        public Entities.Review Map(WhatYouGotLibrary.Models.Review review)
+        public static Entities.Review Map(WhatYouGotLibrary.Models.Review review)
         {
             return new Entities.Review
             {
@@ -132,7 +132,7 @@ namespace WhatYouGotDataAccess
             };
         }
 
-        public WhatYouGotLibrary.Models.Review Map(Entities.Review review)
+        public static WhatYouGotLibrary.Models.Review Map(Entities.Review review)
         {
             return new WhatYouGotLibrary.Models.Review
             {
