@@ -79,7 +79,6 @@ namespace WhatYouGotAPI
             });
             
             /*
-
             
             services.AddCors(options =>
             {
@@ -106,16 +105,20 @@ namespace WhatYouGotAPI
 
             
             var swaggerOptions = new SwaggerOptions();
+
             Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
+
             app.UseSwagger(options =>
             {
                 options.RouteTemplate = swaggerOptions.JsonRoute;
             });
             
+
+
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", swaggerOptions.Description);
-                //options.SwaggerEndpoint(swaggerOptions.UIEndpoint, swaggerOptions.Description);
+                //options.SwaggerEndpoint("/swagger/v1/swagger.json", swaggerOptions.Description);
+                options.SwaggerEndpoint(swaggerOptions.UIEndpoint, swaggerOptions.Description);
             });
             
 

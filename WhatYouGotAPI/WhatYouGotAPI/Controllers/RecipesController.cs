@@ -10,7 +10,7 @@ using WhatYouGotLibrary.Interfaces;
 
 namespace WhatYouGotAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     [ApiController]
     public class RecipesController : ControllerBase
     {
@@ -22,8 +22,9 @@ namespace WhatYouGotAPI.Controllers
         }
 
         // GET: api/Recipes
+
         [HttpGet]
-        public IEnumerable<Recipe> GetRecipe()
+        public IEnumerable<Recipe> Get()
         {
             IEnumerable<Recipe> recipes = _recipeRepo.GetRecipes();
 
@@ -37,7 +38,7 @@ namespace WhatYouGotAPI.Controllers
 
         // GET: api/Recipes/5
         [HttpGet("{id}")]
-        public IActionResult GetRecipe(int id)
+        public IActionResult Get([FromRoute]int id)
         {
             if (!RecipeExists(id))
             {
@@ -86,7 +87,7 @@ namespace WhatYouGotAPI.Controllers
             _recipeRepo.AddRecipe(recipe);
             _recipeRepo.SaveChanges();
 
-            return CreatedAtAction(nameof(GetRecipe), new { id = recipe.Id }, recipe);
+            return CreatedAtAction(nameof(Get), new { id = recipe.Id }, recipe);
         }
 
         // DELETE: api/Recipes/5
