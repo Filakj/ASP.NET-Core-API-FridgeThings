@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WhatYouGotDataAccess.Entities;
+using WhatYouGotDataAccess.Repos;
+using WhatYouGotLibrary.Interfaces;
 
 namespace WhatYouGotAPI
 {
@@ -30,9 +32,17 @@ namespace WhatYouGotAPI
             // Looks for connection string from one of the .json files
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            // Adds dependency to the controller to use DB
+            // Register the database context
             services.AddDbContext<FridgeThingsDBContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            // Register the repositories
+            services.AddTransient<IAccountRepo, AccountRepo>();
+            services.AddTransient<IFavoriteRepo, FavoriteRepo>();
+            services.AddTransient<IIngredientRepo, IngredientRepo>();
+            services.AddTransient<IInstructionRepo, InstructionRepo>();
+            services.AddTransient<IRecipeRepo, RecipeRepo>();
+            services.AddTransient<IReviewRepo, ReviewRepo>();
 
             services.AddControllers();
         }
