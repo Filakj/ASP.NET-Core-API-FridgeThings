@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using WhatYouGotDataAccess.Entities;
 using WhatYouGotLibrary.Interfaces;
-using WhatYouGotLibrary;
 
 namespace WhatYouGotDataAccess.Repos
 {
