@@ -42,7 +42,8 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    publishWebProjects: true
+    publishWebProjects: false
+    projects: '**/WhatYouGotAPI.csproj'
     zipAfterPublish: true
     arguments: '--configuration $(buildConfiguration)'
     workingDirectory: '$(pathToSolution)'
@@ -56,6 +57,6 @@ steps:
     azureSubscription: 'Azure Pass - Sponsorship(2)(c4b7b3c1-4c5b-4915-a5c3-339b8626fbb3)'
     appType: 'webAppLinux'
     appName: 'FridgeThingsAPI'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '$(System.DefaultWorkingDirectory)/WhatYouGotAPI/**/*.zip'
     
 ############ CDevelopment ends ###########
