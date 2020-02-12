@@ -59,12 +59,16 @@ steps:
 
 ############ CDevelopment starts ##########
 
-# add Azure Web App task
+
+
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Azure Pass - Sponsorship(c4b7b3c1-4c5b-4915-a5c3-339b8626fbb3)'
     appType: 'webAppLinux'
     appName: 'FridgeThingsApi'
+    deployToSlotOrASE: true
+    resourceGroupName: 'Revature'
+    slotName: 'production'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
-############ CDevelopment ends ###########
+# add Azure Web App task
