@@ -15,60 +15,37 @@ variables:
   #pathToTest: 'WhatYouGot/WhatYouGot.Test'
 
 steps:
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'Fridge Things Api SonarCloud'
-    organization: 'fridge'
-    scannerMode: 'MSBuild'
-    projectKey: 'fridgethingsapi'
-
-
 
 # add Sonar Cloud prepare task
 
-
-
 # add dot net build script
 - script:
-    dotnet build --configuration $(buildConfiguration)
-  workingDirectory: $(pathToSolution)
+    dotnet build --configuration ${buildConfiguration}
+  workingDirectory: ${pathToSolution}
   displayName: 'dotnet build $(buildConfiguration)'
 
-
 # add Sonar Cloud analyze task
-- task: SonarCloudAnalyze@1
 
 # add Sonar Cloud publish task
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
-
-
 
 # add .Net Core publish task
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
+    arguments: --configuration ${buildConfiguration}
     publishWebProjects: true
     zipAfterPublish: true
-    arguments: '--configuration $(buildConfiguration)'
-    workingDirectory: '$(pathToSolution)'
+    workingDirectory: ${pathToSolution}
   displayName: 'dotnet publish + zip'
 
 ############ CI ends #############
 
 ############ CDevelopment starts ##########
 
-
-
+# add Azure Web App task
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Azure Pass - Sponsorship(c4b7b3c1-4c5b-4915-a5c3-339b8626fbb3)'
     appType: 'webAppLinux'
     appName: 'FridgeThingsApi'
-    deployToSlotOrASE: true
-    resourceGroupName: 'Revature'
-    slotName: 'production'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-
-# add Azure Web App task
