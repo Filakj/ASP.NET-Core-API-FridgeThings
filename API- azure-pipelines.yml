@@ -20,8 +20,8 @@ steps:
 
 # add dot net build script
 - script:
-    dotnet build --configuration ${buildConfiguration}
-  workingDirectory: ${pathToSolution}
+    dotnet build --configuration $(buildConfiguration)
+  workingDirectory: $(pathToSolution)
   displayName: 'dotnet build $(buildConfiguration)'
 
 # add Sonar Cloud analyze task
@@ -32,10 +32,10 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    arguments: --configuration ${buildConfiguration}
+    arguments: --configuration $(buildConfiguration)
     publishWebProjects: true
     zipAfterPublish: true
-    workingDirectory: ${pathToSolution}
+    workingDirectory: $(pathToSolution)
   displayName: 'dotnet publish + zip'
 
 ############ CI ends #############
