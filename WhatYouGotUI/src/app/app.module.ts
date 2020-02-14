@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { ReviewListComponent } from './review-list/review-list.component';
 import { FavoritesListComponent } from './favorites-list/favorites-list.component';
+import { IngredientsFormComponent } from './ingredients-form/ingredients-form.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FavoritesListComponent } from './favorites-list/favorites-list.componen
     RecipeListComponent,
     ReviewListComponent,
     FavoritesListComponent,
+    IngredientsFormComponent,
   ],
   imports: [
     BrowserModule,
