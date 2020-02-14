@@ -6,6 +6,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { ReviewComponent } from './review/review.component';
 import { InstructionsComponent } from './instructions/instructions.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { InstructionsComponent } from './instructions/instructions.component';
     InstructionsComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
