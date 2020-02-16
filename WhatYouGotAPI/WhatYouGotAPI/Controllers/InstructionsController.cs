@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WhatYouGotLibrary.Models;
 using WhatYouGotLibrary.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace WhatYouGotAPI.Controllers
 {
@@ -14,10 +15,12 @@ namespace WhatYouGotAPI.Controllers
     [ApiController]
     public class InstructionsController : ControllerBase
     {
+        private readonly ILogger<InstructionsController> _logger;
         private readonly IInstructionRepo _instructionRepo;
 
-        public InstructionsController(IInstructionRepo instructionRepo)
+        public InstructionsController(ILogger<InstructionsController> logger, IInstructionRepo instructionRepo)
         {
+            _logger = logger;
             _instructionRepo = instructionRepo;
         }
 
@@ -29,8 +32,11 @@ namespace WhatYouGotAPI.Controllers
 
             if (instructions != null)
             {
+                _logger.LogInformation("Getting all instructions.");
                 return instructions.ToList();
             }
+
+            _logger.LogWarning("Attempted to get instructions but no instructions were available.");
             return null;
 
         }
@@ -41,11 +47,13 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!InstructionExists(id))
             {
+                _logger.LogWarning($"Instruction with id: {id} does not exist.");
                 return NotFound();
             }
 
             Instruction instruction = _instructionRepo.GetInstructionById(id);
 
+            _logger.LogInformation($"Getting instruction with id: {id}");
             return Ok(instruction);
         }
 
@@ -57,17 +65,20 @@ namespace WhatYouGotAPI.Controllers
         {
             if (id != instruction.Id)
             {
+                _logger.LogWarning($"Route value id: {id} does not match instruction id: {instruction.Id}");
                 return BadRequest();
             }
 
             if (!InstructionExists(id))
             {
+                _logger.LogWarning($"Instruction with id: {id} does not exist.");
                 return NotFound();
             }
 
             _instructionRepo.UpdateInstruction(instruction);
             _instructionRepo.SaveChanges();
 
+            _logger.LogInformation($"Instruction with id: {id} has been updated.");
             return NoContent();
 
         }
@@ -80,12 +91,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (InstructionExists(instruction.Id))
             {
+                _logger.LogWarning($"Instruction with id: {instruction.Id} already exists.");
                 return Conflict();
             }
 
             _instructionRepo.AddInstruction(instruction);
             _instructionRepo.SaveChanges();
 
+            _logger.LogInformation($"Instruction with id: {instruction.Id} has been added.");
             return CreatedAtAction(nameof(GetInstruction), new { id = instruction.Id }, instruction);
         }
 
@@ -95,12 +108,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!InstructionExists(id))
             {
+                _logger.LogWarning($"Ingredient with id: {id} does not exist.");
                 return NotFound();
             }
 
             _instructionRepo.DeleteInstructionById(id);
             _instructionRepo.SaveChanges();
 
+            _logger.LogInformation($"Instruction with id: {id} has been deleted.");
             return Content($"Instruction with id: {id} has been deleted.");
         }
 
