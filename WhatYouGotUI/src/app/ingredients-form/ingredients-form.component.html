@@ -1,0 +1,15 @@
+<h1>List your ingredients:</h1>
+
+<form [formGroup]="ingredientsForm">
+<div formArrayName="ingredients">
+
+<div *ngFor="let item of ingredientsList.controls; let ingredientsIndex=index" [formGroupName]="ingredientsIndex">
+    <label>
+        Ingredient: <input formControlName="ingredient">
+    </label>
+    <button type="button" (click)="deleteIngredient(ingredientsIndex)">Remove</button>
+</div>
+    <button type="button" (click)="addIngredient()">Add Ingredient</button>
+    <button type="button" (click)="retrieveRecipes()">Submit Ingredients</button>
+
+{{ this.ingredientsForm.value | json }}

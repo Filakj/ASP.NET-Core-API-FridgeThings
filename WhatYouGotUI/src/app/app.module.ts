@@ -14,6 +14,8 @@ import { FavoritesListComponent } from './favorites-list/favorites-list.componen
 import { TestComponent } from './test/test.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { IngredientsFormComponent } from './ingredients-form/ingredients-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,11 +30,13 @@ import { SignupComponent } from './signup/signup.component';
     TestComponent,
     LoginComponent,
     SignupComponent,
+    IngredientsFormComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

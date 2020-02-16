@@ -1,1 +1,45 @@
 <p>signup works!</p>
+
+<div> 
+    <form>
+
+        <div>
+            <label for="Username">
+              Username
+            </label>
+            <input id="Username" type="text" formControlName="Username">
+          </div>
+
+
+          <div>
+            <label for="Passphrase">
+              Password
+            </label>
+            <input id="Passphrase" type="text" formControlName="Passphrase">
+          </div>
+
+
+          <div>
+            <label for="Firstname">
+              Firstname
+            </label>
+            <input id="Firstname" type="text" formControlName="Firstname">
+          </div>
+
+          <div>
+            <label for="Lastname">
+              Lastname
+            </label>
+            <input id="Lastname" type="text" formControlName="Lastname">
+          </div>
+
+          <div>
+            <label for="Email">
+              Email
+            </label>
+            <input id="Email" type="text" formControlName="Email">
+          </div>
+
+        <button (click)="postAccount(Username.value, Passphrase.value, Firstname.value, Lastname.value, Email.value);" class="button" type="submit">Sign Up</button>
+      </form> 
+  </div>

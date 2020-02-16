@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '../Services/fridgethingsServices/account.service';
 //import { FormBuilder } from '@angular/forms';
 //import {LoginService} from '../login.service';
 
@@ -25,9 +26,13 @@ export class LoginComponent implements OnInit {
     });
   }
   */
-  constructor() { }
+  constructor(private accountService: AccountService) { }
+
+
   ngOnInit(): void {
   }
+
+
   
   /*
   onSubmit(loginInfo){ 
