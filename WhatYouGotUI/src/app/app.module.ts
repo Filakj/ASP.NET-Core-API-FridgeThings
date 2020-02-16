@@ -12,6 +12,8 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { ReviewListComponent } from './review-list/review-list.component';
 import { FavoritesListComponent } from './favorites-list/favorites-list.component';
 import { TestComponent } from './test/test.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { TestComponent } from './test/test.component';
     ReviewListComponent,
     FavoritesListComponent,
     TestComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
