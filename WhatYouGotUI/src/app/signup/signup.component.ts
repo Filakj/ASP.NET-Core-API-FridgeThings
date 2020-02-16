@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../Services/fridgethingsServices/account.service';
 import { Account } from '../Models/fridgethingsModels/account';
-import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-signup',
@@ -12,6 +11,7 @@ export class SignupComponent implements OnInit {
 
   constructor(private accountService: AccountService) { }
 
+  /*
   postAccount(username: string, passphrase: string, firstName: string,lastName: string, email: string): void {
     username = username.trim();
     passphrase = passphrase.trim();
@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit {
       (error: any) => {console.log(error)}
       );
   }
-
+*/
   ngOnInit(): void {
   }
 

@@ -27,8 +27,13 @@ export class LoginComponent implements OnInit {
   }
   */
   constructor(private accountService: AccountService) { }
-
-
+  /*
+  getAccountByUsername(username: string, passphrase: string): void {
+    this.accountService.getRecipeById(id)
+        .then(response => this.recipeById = response);
+  }
+  */
+ 
   ngOnInit(): void {
   }
 

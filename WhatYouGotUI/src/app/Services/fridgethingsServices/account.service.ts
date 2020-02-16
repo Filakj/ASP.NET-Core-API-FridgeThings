@@ -26,11 +26,13 @@ export class AccountService {
     return this.httpClient.get<Account>(completeUrl).toPromise();
   }
 
+  /*
   getAccountByUsername(username: String): Promise<Account> {
     var completeUrl = `${this.accountUrl}${username}`;
     console.log(completeUrl);
     return this.httpClient.get<Account>(completeUrl).toPromise();
   }
+  */
   
 
   postAccount(newAccount: Account): Observable<Account> {

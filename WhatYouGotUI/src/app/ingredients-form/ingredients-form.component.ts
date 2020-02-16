@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { RecipeService } from '../Services/fridgethingsServices/recipe.service';
+import { SpoonacularapiService } from '../Services/spoonacularServices/spoonacularapi.service';
 
 @Component({
   selector: 'app-ingredients-form',
@@ -17,6 +19,7 @@ export class IngredientsFormComponent implements OnInit {
 
     this.ingredientsForm = this.fb.group({
       ingredients: this.fb.array([this.fb.group({ingredient: ''})])
+    
     });
   }
 
