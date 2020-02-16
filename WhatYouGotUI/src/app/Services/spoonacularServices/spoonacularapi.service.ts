@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { spRecipe } from '../../Models/spoonacularModels/spRecipe';
 import { spInstructions } from '../../Models/spoonacularModels/spInstructions';
+import { ErrorService } from 'src/app/error.service';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class SpoonacularapiService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private errorHandler: ErrorService) { }
   
   apiKey = 'apiKey=683db520cb5443d595329feb7f9907bb';
   baseUrl = 'https://api.spoonacular.com/recipes/';

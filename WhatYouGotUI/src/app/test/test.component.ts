@@ -67,13 +67,13 @@ export class TestComponent implements OnInit {
   getRecipesFromSpoonacular(): void {
     var tempIngredients = 'chicken,brocolli,pasta';
     this.spApi.getRecipesByIngredients(tempIngredients)
-        .then(response => this.spRecipes = response);
+      .then(response => this.spRecipes = response);
   }
 
   getInstructionsFromSpoonacular(): void {
     var tempRecipeId = 1009580;
     this.spApi.getInstructionsByRecipeId(tempRecipeId)
-        .then(response => this.spInstructions = response); 
+      .then(response => this.spInstructions = response);
   }
   
   ngOnInit(): void {
