@@ -1,29 +1,53 @@
 <h1 class="text-center">List your ingredients:</h1>
 
+<form [formGroup]="ingredientsForm" (ngSubmit)="onSubmit(ingredientsForm)">
+    <input formControlName="ingredientsString" placeholder="chicken,cheese,fetticinni">
+    <button type="submit">Send</button>
+  </form>
 
+  <div *ngIf='spRecipes != null'>
+    <h1>Recipes</h1>
+    <ul>
+        <li *ngFor = 'let recipe of spRecipes'>
+            Id: {{recipe.id}} 
+            <a routerLink="/recipe/{{recipe.id}}">Title: {{recipe.title}} </a>
+            <td><img src="{{recipe.image}}" class="img-responsive"/></td>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf='spRecipes === null'>
+    No recipes received from Spoonacular.
+</div>
+
+
+<!-- MATTS OLD FORM 
 <form [formGroup]="ingredientsForm">
 <div formArrayName="ingredients">
 
 <div class="row justify-content-center align-self-center" *ngFor="let item of ingredientsList.controls; let ingredientsIndex=index" [formGroupName]="ingredientsIndex">
+
+    
     <label >
         Ingredient: <input formControlName="ingredient">
     </label>
     <button type="button" (click)="deleteIngredient(ingredientsIndex)">Remove</button>
-</div>
-
+    
+    </div>
+    
+    
 <div class="row justify-content-center align-self-center">
     <button type="button" (click)="addIngredient()">Add Ingredient</button>
+    <button type="submit"> Find Recipies </button>
     <button type="button" (click)="retrieveRecipes()">Submit Ingredients</button>
 </div>
 
-<Script>
-var querystring = ""
-ingredientsForm.forEach(element => {
-    querystring += element.value()
-    
-});
-Document.getElementById('querystring').value += querystring; 
-</Script>
-<h1 id='querystring'> </h1>
-{{ this.ingredientsString }}
-{{ this.ingredientsForm.value | json }}
+--> 
+
+
+<!-- 
+<h2> {{ this.ingredientsForm.value | json }} </h2>
+<h1> string </h1>
+<h2> {{ this.ingredientsString }} </h2>
+<h2> {{ this.ingredientsForm  }} </h2>
+-->

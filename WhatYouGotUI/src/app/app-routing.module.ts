@@ -11,6 +11,7 @@ import { SignupComponent } from  './signup/signup.component';
 import { IngredientsFormComponent } from './ingredients-form/ingredients-form.component'
 
 const routes: Routes = [
+  { path: 'recipe/:id', component: RecipeComponent },
   { path: 'recipe', component: RecipeComponent },
   { path: 'instructions', component: InstructionsComponent },
   { path: 'review', component: ReviewComponent },

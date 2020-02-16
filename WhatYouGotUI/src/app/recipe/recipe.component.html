@@ -1,1 +1,15 @@
 <p>recipe works!</p>
+
+<div *ngIf='spInstructions != null'>
+    <h1>Instructions</h1>
+    <ol>
+        <div *ngFor = 'let instruction of spInstructions'>
+            <li *ngFor = 'let step of instruction.steps'>
+                {{step.step}}
+            </li>
+        </div>
+    </ol>
+</div>
+<div *ngIf='spInstructions === null'>
+    No instructions received from Spoonacular.
+</div>

@@ -1,4 +1,5 @@
 <p>test works!</p>
+
 <button (click)='getRecipesFromSpoonacular()'>Get Recipes from Spoonacular</button>
 <div *ngIf='spRecipes != null'>
     <h1>Recipes</h1>
@@ -6,9 +7,12 @@
         <li *ngFor = 'let recipe of spRecipes'>
             Id: {{recipe.id}} 
             Title: {{recipe.title}}
+            Image: {{recipe.image}}
+            <img src={{recipe.image}} height="10" width="10"> 
         </li>
     </ul>
 </div>
+
 <div *ngIf='spRecipes === null'>
     No recipes received from Spoonacular.
 </div>
