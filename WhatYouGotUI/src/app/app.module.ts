@@ -12,6 +12,7 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { ReviewListComponent } from './review-list/review-list.component';
 import { FavoritesListComponent } from './favorites-list/favorites-list.component';
 import { IngredientsFormComponent } from './ingredients-form/ingredients-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { IngredientsFormComponent } from './ingredients-form/ingredients-form.co
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

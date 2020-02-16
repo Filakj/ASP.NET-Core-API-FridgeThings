@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-ingredients-form',
@@ -7,9 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IngredientsFormComponent implements OnInit {
 
-  constructor() { }
+  ingredientsForm: FormGroup;
+  ingredientsString: string;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.ingredientsForm = this.fb.group({
+      ingredients: this.fb.array([this.fb.group({ingredient: ''})])
+    });
+  }
+
+  get ingredientsList() {
+    return this.ingredientsForm.get('ingredients') as FormArray;
+  }
+
+  addIngredient(){
+    this.ingredientsList.push(this.fb.group({ingredient: ''}));
+  }
+
+  deleteIngredient(index){
+    this.ingredientsList.removeAt(index);
+  }
+
+  retrieveRecipes(){
+    {
+
+    }
+
+    }
   }
 
 }
