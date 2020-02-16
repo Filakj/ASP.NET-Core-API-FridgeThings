@@ -6,6 +6,8 @@ import { ReviewComponent } from './review/review.component';
 import { ReviewListComponent } from './review-list/review-list.component';
 import { FavoritesListComponent } from './favorites-list/favorites-list.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from  './signup/signup.component';
 
 const routes: Routes = [
   { path: 'recipe', component: RecipeComponent },
@@ -13,7 +15,9 @@ const routes: Routes = [
   { path: 'review', component: ReviewComponent },
   { path: 'reviews', component: ReviewListComponent },
   { path: 'favorites', component: FavoritesListComponent },
-  { path: 'recipes', component: RecipeListComponent }
+  { path: 'recipes', component: RecipeListComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent }
 ];
 
 

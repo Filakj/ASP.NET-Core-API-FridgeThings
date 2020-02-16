@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import {LoginService} from '../login.service'
+//import { FormBuilder } from '@angular/forms';
+//import {LoginService} from '../login.service';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +10,10 @@ import {LoginService} from '../login.service'
 
 export class LoginComponent implements OnInit {
 
-  loginForm;  
+  
+  //loginForm;  
 
+  /*
   constructor(
     private loginService: LoginService,
     private formBuilder: FormBuilder,
@@ -22,11 +24,15 @@ export class LoginComponent implements OnInit {
 
     });
   }
-
+  */
+  constructor() { }
   ngOnInit(): void {
   }
+  
+  /*
   onSubmit(loginInfo){ 
     console.warn("Validating")
   }
+  */
 
 }
