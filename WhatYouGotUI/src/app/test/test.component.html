@@ -1,0 +1,131 @@
+<p>test works!</p>
+<button (click)='getRecipesFromSpoonacular()'>Get Recipes from Spoonacular</button>
+<div *ngIf='spRecipes != null'>
+    <h1>Recipes</h1>
+    <ul>
+        <li *ngFor = 'let recipe of spRecipes'>
+            Id: {{recipe.id}} 
+            Title: {{recipe.title}}
+        </li>
+    </ul>
+</div>
+<div *ngIf='spRecipes === null'>
+    No recipes received from Spoonacular.
+</div>
+
+<button (click)='getInstructionsFromSpoonacular()'>Get Instructions from Spoonacular</button>
+<div *ngIf='spInstructions != null'>
+    <h1>Instructions</h1>
+    <ol>
+        <div *ngFor = 'let instruction of spInstructions'>
+            <li *ngFor = 'let step of instruction.steps'>
+                {{step.step}}
+            </li>
+        </div>
+    </ol>
+</div>
+<div *ngIf='spInstructions === null'>
+    No instructions received from Spoonacular.
+</div>
+
+<button (click)='getRecipes()'>Get Recipes from database</button>
+<div *ngIf='recipes != null'>
+    <h1>Recipes</h1>
+    <ul>
+        <li *ngFor = 'let recipe of recipes'>
+            Id: {{recipe.id}} 
+            Title: {{recipe.title}}
+        </li>
+    </ul>
+</div>
+<div *ngIf='recipes === null'>
+    No recipes received from database.
+</div>
+
+<br><br>
+
+<div>
+    <label>
+        Recipe Id:
+        <input #recipeId />
+    </label>
+    <button (click)="getRecipeById(recipeId.value); recipeId.value=''">
+        get recipe
+    </button>
+
+    <div *ngIf='recipeById != null'>
+    <h4>Recipe of Id {{recipeById.id}}</h4>
+    Title: {{recipeById.title}}
+    <br>
+    ImageUrl: {{recipeById.imageUrl}}
+    </div>
+
+    <div *ngIf='recipeById === null'>
+        No recipe received from database.
+    </div>
+</div>
+
+<br><br>
+
+<div>
+    <label>
+        Recipe Id:
+        <input #recipeId1 />
+    </label>
+    <br>
+    <label>
+        Recipe Title:
+        <input #recipeTitle />
+    </label>
+    <br>
+    <label>
+        Recipe ImageUrl:
+        <input #recipeImageUrl />
+    </label>
+    <br>
+    <button (click)="postRecipe(recipeId1.value, recipeTitle.value, recipeImageUrl.value);
+            recipeId1.value=''; recipeTitle.value=''; recipeImageUrl.value=''">
+            post
+    </button>   
+</div>
+
+<br><br>
+
+<div>
+    <label>
+        Id of Recipe you want to modify:
+        <input #recipeId2 />
+    </label>
+    <br>
+    <label>
+        New Recipe Title:
+        <input #recipeTitle2 />
+    </label>
+    <br>
+    <label>
+        New Recipe ImageUrl:
+        <input #recipeImageUrl2 />
+    </label>
+    <br>
+    <button (click)="putRecipe(recipeId2.value, recipeTitle2.value, recipeImageUrl2.value);
+            recipeId2.value=''; recipeTitle2.value=''; recipeImageUrl2.value=''">
+            put
+    </button>   
+</div>
+
+<br><br>
+
+<div>
+    <label>
+        Delete recipe with Id:
+        <input #deleteRecipeWithId />
+    </label>
+    <button (click)="deleteRecipe(deleteRecipeWithId.value); deleteRecipeWithId.value=''">
+        delete recipe
+    </button>
+</div>
+
+
+
+
+
