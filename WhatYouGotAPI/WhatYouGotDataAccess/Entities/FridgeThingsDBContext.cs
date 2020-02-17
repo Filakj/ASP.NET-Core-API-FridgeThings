@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace WhatYouGotDataAccess.Entities
+namespace WhatYouGotDataAccess
 {
     public partial class FridgeThingsDBContext : DbContext
     {
@@ -24,7 +24,11 @@ namespace WhatYouGotDataAccess.Entities
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //Intentionally left blank.
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=tcp:fridgethings.database.windows.net,1433;Initial Catalog=FridgeThingsDB; User ID=FridgeManager;Password=FridgeThings!;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -54,7 +58,8 @@ namespace WhatYouGotDataAccess.Entities
 
             modelBuilder.Entity<Ingredient>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.HasKey(e => new { e.Id, e.RecipeId })
+                    .HasName("PK__Ingredie__2DC9748C3A60F384");
 
                 entity.Property(e => e.Amount).HasColumnType("decimal(18, 0)");
 
@@ -67,9 +72,7 @@ namespace WhatYouGotDataAccess.Entities
                     .IsRequired()
                     .IsUnicode(false);
 
-                entity.Property(e => e.Unit)
-                    .IsRequired()
-                    .IsUnicode(false);
+                entity.Property(e => e.Unit).IsUnicode(false);
             });
 
             modelBuilder.Entity<Instruction>(entity =>

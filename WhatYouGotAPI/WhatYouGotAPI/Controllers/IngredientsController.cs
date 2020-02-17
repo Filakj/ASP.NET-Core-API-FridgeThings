@@ -101,12 +101,13 @@ namespace WhatYouGotAPI.Controllers
         [HttpPost]
         public IActionResult PostIngredient(Ingredient ingredient)
         {
+            /*
             if (IngredientExists(ingredient.Id))
             {
                 _logger.LogWarning($"Ingredient with id: {ingredient.Id} already exists.");
                 return Conflict();
             }
-
+            */
             _ingredientRepo.AddIngredient(ingredient);
             _ingredientRepo.SaveChanges();
 

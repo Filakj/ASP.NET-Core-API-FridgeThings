@@ -26,6 +26,11 @@ export class IngredientService {
     return this.httpClient.get<Ingredient>(completeUrl).toPromise();
   }
 
+  getIngredientByRecipeId(rid:number): Promise<Ingredient[]>{ 
+    var alternateURL = `http://fridgethingsapi.azurewebsites.net/ByRecipe/${rid}`;
+    return this.httpClient.get<Ingredient[]>(alternateURL).toPromise();
+  }
+
   postIngredient(newIngredient: Ingredient): Observable<Ingredient> {
     console.log(this.ingredientUrl);
     console.log(newIngredient);

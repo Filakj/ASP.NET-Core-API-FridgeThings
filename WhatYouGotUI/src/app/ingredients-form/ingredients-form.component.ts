@@ -44,6 +44,8 @@ export class IngredientsFormComponent implements OnInit {
       ingredientsString: ''
     });
 
+    
+
     //this.ingredientsString = "";
 
 
@@ -61,6 +63,8 @@ export class IngredientsFormComponent implements OnInit {
     });
     */
   }//ngInit
+
+
 
   onSubmit(form: FormGroup) {
     console.log('Valid?', form.valid); // true or false
@@ -102,6 +106,32 @@ export class IngredientsFormComponent implements OnInit {
       (data: Recipe) => {console.log(data);},
       (error: any) => {console.log(error)}
       );
+  }
+
+  parseIngredients(){ 
+
+    this.spRecipes.forEach(recipe => {
+      var rId = recipe.id; 
+      var used = recipe.usedIngredients;
+      used.forEach(ingr =>{ 
+        var Iid = ingr.id; 
+        var IName = ingr.name;
+        var Iamount = ingr.amount; 
+        var  IURL = ingr.image; 
+        var Iunit = ingr.unit;
+        this.postIngredient(Iid, rId,IURL, IName,Iamount,Iunit); 
+      });
+      var missed = recipe.missedIngredients;
+      missed.forEach(ingr =>{ 
+        var Iid = ingr.id; 
+        var IName = ingr.name;
+        var Iamount = ingr.amount; 
+        var  IURL = ingr.image; 
+        var Iunit = ingr.unit;
+        this.postIngredient(Iid, rId,IURL, IName,Iamount,Iunit); 
+      });
+
+    });
   }
 
   postIngredient(ingredientId: number, recipeId: number, ImageUrl: string, ingredientName: string, amount: number, unit: string): void {
