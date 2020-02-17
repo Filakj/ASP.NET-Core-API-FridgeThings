@@ -49,6 +49,19 @@ namespace WhatYouGotAPI.Controllers
             return Ok(ingredient);
         }
 
+         // GET: api/Ingredients/ByRecipe/5
+        [HttpGet("/ByRecipe/{recipeId}")]
+        public IEnumerable<Ingredient> GetIngredients(int recipeId)
+        {
+            IEnumerable<Ingredient> ingredients = _ingredientRepo.GetIngredientsByRecipe(recipeId);
+
+            if (ingredients != null)
+            {
+                return ingredients.ToList();
+            }
+            return null;
+        }
+
         // PUT: api/Ingredients/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.

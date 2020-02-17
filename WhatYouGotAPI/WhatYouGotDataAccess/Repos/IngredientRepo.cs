@@ -42,6 +42,18 @@ namespace WhatYouGotDataAccess.Repos
             return ingredients.Select(Mapper.Map);
         }
 
+        public IEnumerable<WhatYouGotLibrary.Models.Ingredient> GetIngredientsByRecipe(int recipeId){
+            
+            IQueryable<Entities.Ingredient> ingredients = _context.Ingredient;
+
+            var query = from e in ingredients
+                             where e.RecipeId == recipeId
+                             select Mapper.Map(e);
+                        
+
+            return query;
+        }
+
         public bool IngredientExists(int id)
         {
             return _context.Ingredient.Any(e => e.Id == id);

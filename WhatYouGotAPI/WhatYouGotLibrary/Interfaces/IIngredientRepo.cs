@@ -9,6 +9,8 @@ namespace WhatYouGotLibrary.Interfaces
     {
         IEnumerable<Ingredient> GetIngredients();
 
+        IEnumerable<Ingredient> GetIngredientsByRecipe(int recipeId);
+
         Ingredient GetIngredientById(int id);
 
         void UpdateIngredient(Ingredient ingredient);
