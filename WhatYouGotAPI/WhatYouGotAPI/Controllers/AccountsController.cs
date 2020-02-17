@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using WhatYouGotLibrary.Interfaces;
 using WhatYouGotLibrary.Models;
 
@@ -14,10 +15,12 @@ namespace WhatYouGotAPI.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
+        private readonly ILogger<AccountsController> _logger;
         private readonly IAccountRepo _accountRepo;
 
-        public AccountsController(IAccountRepo accountRepo)
+        public AccountsController(ILogger<AccountsController> logger, IAccountRepo accountRepo)
         {
+            _logger = logger;
             _accountRepo = accountRepo;
         }
 
@@ -29,8 +32,10 @@ namespace WhatYouGotAPI.Controllers
 
             if (accounts != null)
             {
+                _logger.LogInformation("Getting all accounts.");
                 return accounts.ToList();
             }
+            _logger.LogWarning("Attempted to get accounts but no accounts were available.");
             return null;
 
         }
@@ -41,11 +46,13 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!AccountExists(id))
             {
+                _logger.LogWarning($"Account with id: {id} does not exist.");
                 return NotFound();
             }
 
             Account account = _accountRepo.GetAccountById(id);
 
+            _logger.LogInformation($"Getting account with id: {id}");
             return Ok(account);
         }
 
@@ -57,17 +64,20 @@ namespace WhatYouGotAPI.Controllers
         {
             if (id != account.Id)
             {
+                _logger.LogWarning($"Route value id: {id} does not match account id: {account.Id}");
                 return BadRequest();
             }
 
             if (!AccountExists(id))
             {
+                _logger.LogWarning($"Account with id: {id} does not exist.");
                 return NotFound();
             }
 
             _accountRepo.UpdateAccount(account);
             _accountRepo.SaveChanges();
 
+            _logger.LogInformation($"Account with id: {id} has been updated.");
             return NoContent();
 
         }
@@ -80,12 +90,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (AccountExists(account.Id))
             {
+                _logger.LogWarning($"Account with id: {account.Id} already exists.");
                 return Conflict();
             }
 
             _accountRepo.AddAccount(account);
             _accountRepo.SaveChanges();
 
+            _logger.LogInformation($"Account with id: {account.Id} has been added.");
             return CreatedAtAction(nameof(GetAccount), new { id = account.Id }, account);
         }
 
@@ -95,12 +107,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!AccountExists(id))
             {
+                _logger.LogWarning($"Account with id: {id} does not exist.");
                 return NotFound();
             }
 
             _accountRepo.DeleteAccountById(id);
             _accountRepo.SaveChanges();
 
+            _logger.LogInformation($"Account with id: {id} has been deleted.");
             return Content($"Account with id: {id} has been deleted.");
         }
 

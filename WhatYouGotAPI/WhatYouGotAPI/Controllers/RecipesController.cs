@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WhatYouGotLibrary.Models;
 using WhatYouGotLibrary.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace WhatYouGotAPI.Controllers
 {
@@ -14,10 +15,12 @@ namespace WhatYouGotAPI.Controllers
     [ApiController]
     public class RecipesController : ControllerBase
     {
+        private readonly ILogger<RecipesController> _logger;
         private readonly IRecipeRepo _recipeRepo;
 
-        public RecipesController(IRecipeRepo recipeRepo)
+        public RecipesController(ILogger<RecipesController> logger, IRecipeRepo recipeRepo)
         {
+            _logger = logger;
             _recipeRepo = recipeRepo;
         }
 
@@ -30,8 +33,10 @@ namespace WhatYouGotAPI.Controllers
 
             if (recipes != null)
             {
+                _logger.LogInformation("Getting all recipes.");
                 return recipes.ToList();
             }
+            _logger.LogWarning("Attempted to get recipes but no recipes were available.");
             return null;
             
         }
@@ -42,11 +47,13 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!RecipeExists(id))
             {
+                _logger.LogWarning($"Recipe with id: {id} does not exist.");
                 return NotFound();
             }
             
             Recipe recipe = _recipeRepo.GetRecipeById(id);
 
+            _logger.LogInformation($"Getting recipe with id: {id}");
             return Ok(recipe);
         }
 
@@ -58,17 +65,20 @@ namespace WhatYouGotAPI.Controllers
         {
             if (id != recipe.Id)
             {
+                _logger.LogWarning($"Route value id: {id} does not match recipe id: {recipe.Id}");
                 return BadRequest();
             }
 
             if (!RecipeExists(id))
             {
+                _logger.LogWarning($"Recipe with id: {id} does not exist.");
                 return NotFound();
             }
 
             _recipeRepo.UpdateRecipe(recipe);
             _recipeRepo.SaveChanges();
-            
+
+            _logger.LogInformation($"Recipe with id: {id} has been updated.");
             return NoContent();
 
         }
@@ -81,12 +91,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (RecipeExists(recipe.Id))
             {
+                _logger.LogWarning($"Recipe with id: {recipe.Id} already exists.");
                 return Conflict();
             }
 
             _recipeRepo.AddRecipe(recipe);
             _recipeRepo.SaveChanges();
 
+            _logger.LogInformation($"Recipe with id: {recipe.Id} has been added.");
             return CreatedAtAction(nameof(Get), new { id = recipe.Id }, recipe);
         }
 
@@ -96,12 +108,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!RecipeExists(id))
             {
+                _logger.LogWarning($"Recipe with id: {id} does not exist.");
                 return NotFound();
             }
 
             _recipeRepo.DeleteRecipeById(id);
             _recipeRepo.SaveChanges();
 
+            _logger.LogInformation($"Recipe with id: {id} has been deleted.");
             return Content($"Recipe with id: {id} has been deleted.");
         }
 

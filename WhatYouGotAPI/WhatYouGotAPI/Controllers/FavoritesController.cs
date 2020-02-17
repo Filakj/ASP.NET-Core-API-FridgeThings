@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using WhatYouGotLibrary.Interfaces;
 using WhatYouGotLibrary.Models;
 
@@ -14,10 +15,12 @@ namespace WhatYouGotAPI.Controllers
     [ApiController]
     public class FavoritesController : ControllerBase
     {
+        private readonly ILogger<FavoritesController> _logger;
         private readonly IFavoriteRepo _favoriteRepo;
 
-        public FavoritesController(IFavoriteRepo favoriteRepo)
+        public FavoritesController(ILogger<FavoritesController> logger, IFavoriteRepo favoriteRepo)
         {
+            _logger = logger;
             _favoriteRepo = favoriteRepo;
         }
 
@@ -29,8 +32,10 @@ namespace WhatYouGotAPI.Controllers
 
             if (favorites != null)
             {
+                _logger.LogInformation("Getting all favorites.");
                 return favorites.ToList();
             }
+            _logger.LogWarning("Attempted to get favorites but no favorites were available.");
             return null;
 
         }
@@ -41,11 +46,13 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!FavoriteExists(id))
             {
+                _logger.LogWarning($"Favorite with id: {id} does not exist.");
                 return NotFound();
             }
 
             Favorite favorite = _favoriteRepo.GetFavoriteById(id);
 
+            _logger.LogInformation($"Getting favorite with id: {id}");
             return Ok(favorite);
         }
 
@@ -57,17 +64,20 @@ namespace WhatYouGotAPI.Controllers
         {
             if (id != favorite.Id)
             {
+                _logger.LogWarning($"Route value id: {id} does not match favorite id: {favorite.Id}");
                 return BadRequest();
             }
 
             if (!FavoriteExists(id))
             {
+                _logger.LogWarning($"Favorite with id: {id} does not exist.");
                 return NotFound();
             }
 
             _favoriteRepo.UpdateFavorite(favorite);
             _favoriteRepo.SaveChanges();
 
+            _logger.LogInformation($"Favorite with id: {id} has been updated.");
             return NoContent();
 
         }
@@ -80,12 +90,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (FavoriteExists(favorite.Id))
             {
+                _logger.LogWarning($"Favorite with id: {favorite.Id} already exists.");
                 return Conflict();
             }
 
             _favoriteRepo.AddFavorite(favorite);
             _favoriteRepo.SaveChanges();
 
+            _logger.LogInformation($"Favorite with id: {favorite.Id} has been added.");
             return CreatedAtAction(nameof(GetFavorite), new { id = favorite.Id }, favorite);
         }
 
@@ -95,12 +107,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!FavoriteExists(id))
             {
+                _logger.LogWarning($"Favorite with id: {id} does not exist.");
                 return NotFound();
             }
 
             _favoriteRepo.DeleteFavoriteById(id);
             _favoriteRepo.SaveChanges();
 
+            _logger.LogInformation($"Favorite with id: {id} has been deleted.");
             return Content($"Favorite with id: {id} has been deleted.");
         }
 

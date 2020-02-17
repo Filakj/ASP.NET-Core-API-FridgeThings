@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WhatYouGotLibrary.Models;
 using WhatYouGotLibrary.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace WhatYouGotAPI.Controllers
 {
@@ -14,10 +15,12 @@ namespace WhatYouGotAPI.Controllers
     [ApiController]
     public class IngredientsController : ControllerBase
     {
+        private readonly ILogger<IngredientsController> _logger;
         private readonly IIngredientRepo _ingredientRepo;
 
-        public IngredientsController(IIngredientRepo ingredientRepo)
+        public IngredientsController(ILogger<IngredientsController> logger, IIngredientRepo ingredientRepo)
         {
+            _logger = logger;
             _ingredientRepo = ingredientRepo;
         }
 
@@ -29,8 +32,10 @@ namespace WhatYouGotAPI.Controllers
 
             if (ingredients != null)
             {
+                _logger.LogInformation("Getting all ingredients.");
                 return ingredients.ToList();
             }
+            _logger.LogWarning("Attempted to get ingredients but no ingredients were available.");
             return null;
 
         }
@@ -41,11 +46,13 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!IngredientExists(id))
             {
+                _logger.LogWarning($"Ingredient with id: {id} does not exist.");
                 return NotFound();
             }
 
             Ingredient ingredient = _ingredientRepo.GetIngredientById(id);
 
+            _logger.LogInformation($"Getting ingredient with id: {id}");
             return Ok(ingredient);
         }
 
@@ -70,17 +77,20 @@ namespace WhatYouGotAPI.Controllers
         {
             if (id != ingredient.Id)
             {
+                _logger.LogWarning($"Route value id: {id} does not match ingredient id: {ingredient.Id}");
                 return BadRequest();
             }
 
             if (!IngredientExists(id))
             {
+                _logger.LogWarning($"Ingredient with id: {id} does not exist.");
                 return NotFound();
             }
 
             _ingredientRepo.UpdateIngredient(ingredient);
             _ingredientRepo.SaveChanges();
 
+            _logger.LogInformation($"Ingredient with id: {id} has been updated.");
             return NoContent();
 
         }
@@ -93,12 +103,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (IngredientExists(ingredient.Id))
             {
+                _logger.LogWarning($"Ingredient with id: {ingredient.Id} already exists.");
                 return Conflict();
             }
 
             _ingredientRepo.AddIngredient(ingredient);
             _ingredientRepo.SaveChanges();
 
+            _logger.LogInformation($"Ingredient with id: {ingredient.Id} has been added.");
             return CreatedAtAction(nameof(GetIngredient), new { id = ingredient.Id }, ingredient);
         }
 
@@ -108,12 +120,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!IngredientExists(id))
             {
+                _logger.LogWarning($"Ingredient with id: {id} does not exist.");
                 return NotFound();
             }
 
             _ingredientRepo.DeleteIngredientById(id);
             _ingredientRepo.SaveChanges();
 
+            _logger.LogInformation($"Ingredient with id: {id} has been deleted.");
             return Content($"Ingredient with id: {id} has been deleted.");
         }
 

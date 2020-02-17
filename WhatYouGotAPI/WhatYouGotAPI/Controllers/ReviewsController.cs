@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WhatYouGotLibrary.Models;
 using WhatYouGotLibrary.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace WhatYouGotAPI.Controllers
 {
@@ -14,10 +15,12 @@ namespace WhatYouGotAPI.Controllers
     [ApiController]
     public class ReviewsController : ControllerBase
     {
+        private readonly ILogger<ReviewsController> _logger;
         private readonly IReviewRepo _reviewRepo;
 
-        public ReviewsController(IReviewRepo reviewRepo)
+        public ReviewsController(ILogger<ReviewsController> logger, IReviewRepo reviewRepo)
         {
+            _logger = logger;
             _reviewRepo = reviewRepo;
         }
 
@@ -29,8 +32,10 @@ namespace WhatYouGotAPI.Controllers
 
             if (reviews != null)
             {
+                _logger.LogInformation("Getting all reviews.");
                 return reviews.ToList();
             }
+            _logger.LogWarning("Attempted to get reviews but no reviews were available.");
             return null;
 
         }
@@ -41,11 +46,13 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!ReviewExists(id))
             {
+                _logger.LogWarning($"Review with id: {id} does not exist.");
                 return NotFound();
             }
 
             Review review = _reviewRepo.GetReviewById(id);
 
+            _logger.LogInformation($"Getting review with id: {id}");
             return Ok(review);
         }
 
@@ -57,17 +64,20 @@ namespace WhatYouGotAPI.Controllers
         {
             if (id != review.Id)
             {
+                _logger.LogWarning($"Route value id: {id} does not match review id: {review.Id}");
                 return BadRequest();
             }
 
             if (!ReviewExists(id))
             {
+                _logger.LogWarning($"Review with id: {id} does not exist.");
                 return NotFound();
             }
 
             _reviewRepo.UpdateReview(review);
             _reviewRepo.SaveChanges();
 
+            _logger.LogInformation($"Review with id: {id} has been updated.");
             return NoContent();
 
         }
@@ -80,12 +90,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (ReviewExists(review.Id))
             {
+                _logger.LogWarning($"Review with id: {review.Id} already exists.");
                 return Conflict();
             }
 
             _reviewRepo.AddReview(review);
             _reviewRepo.SaveChanges();
 
+            _logger.LogInformation($"Review with id: {review.Id} has been added.");
             return CreatedAtAction(nameof(GetReview), new { id = review.Id }, review);
         }
 
@@ -95,12 +107,14 @@ namespace WhatYouGotAPI.Controllers
         {
             if (!ReviewExists(id))
             {
+                _logger.LogWarning($"Review with id: {id} does not exist.");
                 return NotFound();
             }
 
             _reviewRepo.DeleteReviewById(id);
             _reviewRepo.SaveChanges();
 
+            _logger.LogInformation($"Review with id: {id} has been deleted.");
             return Content($"Review with id: {id} has been deleted.");
         }
 
