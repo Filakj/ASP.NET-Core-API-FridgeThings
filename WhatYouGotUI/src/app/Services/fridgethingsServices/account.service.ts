@@ -40,13 +40,13 @@ export class AccountService {
     console.log(newAccount);
     return this.httpClient.post<Account>(this.accountUrl, newAccount, this.httpOptions);
   }
-
+  /*
   putAccount(newAccount: Account): Observable<any> {
     var completeUrl = `${this.accountUrl}${newAccount.id}`;
     console.log(completeUrl);
     return this.httpClient.put(completeUrl, newAccount, this.httpOptions);
   }
-
+  */
   deleteAccount(id: number): Observable<Account> {
     var completeUrl = `${this.accountUrl}${id}`;
     console.log(completeUrl);

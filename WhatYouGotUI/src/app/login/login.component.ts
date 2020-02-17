@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { AccountService } from '../Services/fridgethingsServices/account.service';
-//import { FormBuilder } from '@angular/forms';
-//import {LoginService} from '../login.service';
+import { Account } from '../Models/fridgethingsModels/account';
 
 @Component({
   selector: 'app-login',
@@ -11,38 +11,40 @@ import { AccountService } from '../Services/fridgethingsServices/account.service
 
 export class LoginComponent implements OnInit {
 
-  
-  //loginForm;  
+ loginForm: FormGroup; 
+ Accounts: Account[]; 
 
-  /*
-  constructor(
-    private loginService: LoginService,
-    private formBuilder: FormBuilder,
-  ) {
-    this.loginForm = formBuilder.group({
-      username: '',
-      passphrase:''
 
-    });
-  }
-  */
-  constructor(private accountService: AccountService) { }
+ constructor(
+   private accountService: AccountService,
+   private fb: FormBuilder,
+   ) { }
   /*
   getAccountByUsername(username: string, passphrase: string): void {
     this.accountService.getRecipeById(id)
         .then(response => this.recipeById = response);
   }
   */
- 
-  ngOnInit(): void {
-  }
+ ngOnInit(): void {
+  this.loginForm = this.fb.group({
+    username: '', 
+    password: '',
+});
+}
+
+onSubmit(form: FormGroup) {
+  console.log('Valid?', form.valid); // true or false
+  console.log('Username', form.value.username);
+  console.log('Password', form.value.password);
+
+
+}
+
+getAccounts(){ 
+  this.accountService.getAccounts()
+  .then(response => this.Accounts = response);
+}
 
 
   
-  /*
-  onSubmit(loginInfo){ 
-    console.warn("Validating")
-  }
-  */
-
 }

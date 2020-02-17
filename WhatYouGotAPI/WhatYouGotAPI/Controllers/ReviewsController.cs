@@ -11,9 +11,6 @@ using Microsoft.Extensions.Logging;
 
 namespace WhatYouGotAPI.Controllers
 {
-
-    /*
-
     [Route("api/[controller]")]
     [ApiController]
     public class ReviewsController : ControllerBase
@@ -47,85 +44,86 @@ namespace WhatYouGotAPI.Controllers
         [HttpGet("{userId}/{recipeId}")]
         public IActionResult GetReview(int userId, int recipeId)
         {
-            if (!ReviewExists(id))
+            if (!ReviewExists(userId, recipeId))
             {
-                _logger.LogWarning($"Review with id: {id} does not exist.");
+                _logger.LogWarning($"Review with user id: {userId} and recipe id: {recipeId} does not exist.");
                 return NotFound();
             }
 
-            Review review = _reviewRepo.GetReviewById(id);
+            Review review = _reviewRepo.GetReviewById(userId, recipeId);
 
-            _logger.LogInformation($"Getting review with id: {id}");
+            _logger.LogInformation($"Getting review with user id: {userId} and recipe id: {recipeId}.");
             return Ok(review);
         }
 
-        // PUT: api/Reviews/5
+        //PUT: api/Reviews/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public IActionResult PutReview(int id, Review review)
+        [HttpPut("{userId}/{recipeId}")]
+        public IActionResult PutReview(int userId, int recipeId, Review review)
         {
-            if (id != review.Id)
+            if (userId != review.UserId || recipeId != review.RecipeId)
             {
-                _logger.LogWarning($"Route value id: {id} does not match review id: {review.Id}");
+                _logger.LogWarning($"Route values: user id: {userId} and recipe id: {recipeId} does not " +
+                    $"match Review user id: {review.UserId} and Review recipe id: {review.RecipeId}");
                 return BadRequest();
             }
 
-            if (!ReviewExists(id))
+            if (!ReviewExists(userId, recipeId))
             {
-                _logger.LogWarning($"Review with id: {id} does not exist.");
+                _logger.LogWarning($"Review with user id: {userId} and recipe id: {recipeId} does not exist.");
                 return NotFound();
             }
 
             _reviewRepo.UpdateReview(review);
             _reviewRepo.SaveChanges();
 
-            _logger.LogInformation($"Review with id: {id} has been updated.");
+            _logger.LogInformation($"Review with user id: {userId} and recipe id: {recipeId} has been updated.");
             return NoContent();
 
         }
 
-        // POST: api/Reviews
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        //POST: api/Reviews
+        //To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public IActionResult PostReview(Review review)
         {
-            if (ReviewExists(review.Id))
+            if (ReviewExists(review.UserId, review.RecipeId))
             {
-                _logger.LogWarning($"Review with id: {review.Id} already exists.");
+                _logger.LogWarning($"Review with user id: {review.UserId} and recipe id: {review.RecipeId} already exists.");
                 return Conflict();
             }
 
             _reviewRepo.AddReview(review);
             _reviewRepo.SaveChanges();
 
-            _logger.LogInformation($"Review with id: {review.Id} has been added.");
-            return CreatedAtAction(nameof(GetReview), new { id = review.Id }, review);
+            _logger.LogInformation($"Review with user id: {review.UserId} and recipe id: {review.RecipeId} has been added.");
+            return CreatedAtAction(nameof(GetReview), review);
         }
 
-        // DELETE: api/Reviews/5
-        [HttpDelete("{id}")]
-        public IActionResult DeleteReview(int id)
+        //DELETE: api/Reviews/5
+        [HttpDelete("{userId}/{recipeId}")]
+        public IActionResult DeleteReview(int userId, int recipeId)
         {
-            if (!ReviewExists(id))
+            if (!ReviewExists(userId, recipeId))
             {
-                _logger.LogWarning($"Review with id: {id} does not exist.");
+                _logger.LogWarning($"Review with user id: {userId} and recipe id: {recipeId} does not exist.");
                 return NotFound();
             }
 
-            _reviewRepo.DeleteReviewById(id);
+            _reviewRepo.DeleteReviewById(userId, recipeId);
             _reviewRepo.SaveChanges();
 
-            _logger.LogInformation($"Review with id: {id} has been deleted.");
-            return Content($"Review with id: {id} has been deleted.");
+            _logger.LogInformation($"Review with user id: {userId} and recipe id: {recipeId} has been deleted.");
+            return Content($"Review with user id: {userId} and recipe id: {recipeId} has been deleted.");
         }
 
-        private bool ReviewExists(int id)
+        private bool ReviewExists(int userId, int recipeId)
         {
-            return _reviewRepo.ReviewExists(id);
+            return _reviewRepo.ReviewExists(userId, recipeId);
         }
 
-    */
     }
+}
 

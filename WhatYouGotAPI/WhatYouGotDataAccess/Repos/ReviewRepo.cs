@@ -22,15 +22,22 @@ namespace WhatYouGotDataAccess.Repos
             _context.Add(newReview);
         }
 
-        public void DeleteReviewById(int id)
+        public void DeleteReviewById(int userId, int recipeId)
         {
-            Entities.Review review = _context.Review.Find(id);
+            IQueryable<Review> reviews = from r in _context.Review
+                                         where r.UserId == userId & r.RecipeId == recipeId
+                                         select r;
+
+            Entities.Review review = reviews.FirstOrDefault();
             _context.Remove(review);
         }
 
-        public WhatYouGotLibrary.Models.Review GetReviewById(int id)
+        public WhatYouGotLibrary.Models.Review GetReviewById(int userId, int recipeId)
         {
-            Entities.Review review = _context.Review.Find(id);
+            IQueryable<Review> reviews = from r in _context.Review
+                                         where r.UserId == userId & r.RecipeId == recipeId
+                                         select r;
+            Entities.Review review = reviews.FirstOrDefault();
 
             return Mapper.Map(review);
         }
@@ -42,25 +49,27 @@ namespace WhatYouGotDataAccess.Repos
             return reviews.Select(Mapper.Map);
         }
 
-        /*
-        public bool ReviewExists(int id)
+        public bool ReviewExists(int userId, int recipeId)
         {
-            return _context.Review.Any(e => e.Id == id);
+            return _context.Review.Any(review => review.UserId == userId && review.RecipeId == recipeId);
         }
-        */
 
         public void SaveChanges()
         {
             _context.SaveChanges();
         }
-        /*
+        
         public void UpdateReview(WhatYouGotLibrary.Models.Review review)
         {
-            Entities.Review currentReview = _context.Review.Find(review.Id);
+            IQueryable<Review> reviews = from r in _context.Review
+                                         where r.UserId == review.UserId & r.RecipeId == review.RecipeId
+                                         select r;
+
+            Entities.Review currentReview = reviews.FirstOrDefault();
             Entities.Review newReview = Mapper.Map(review);
 
             _context.Entry(currentReview).CurrentValues.SetValues(newReview);
         }
-        */
+        
     }
 }

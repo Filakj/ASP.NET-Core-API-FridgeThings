@@ -1,5 +1,19 @@
 <p> Login Works and goes here </p>
 
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+  <div> 
+  <input formControlName="username" placeholder="BadJohnDoe">
+  </div>
+  <div> 
+  <input formControlName="password" placeholder="******" type="password">
+  </div>
+  <div>
+  <button type="submit">Register</button>
+  </div>
+</form>
+
+
+
 <!--
 <div> 
   <form>

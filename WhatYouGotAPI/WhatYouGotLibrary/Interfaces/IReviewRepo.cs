@@ -7,7 +7,7 @@ namespace WhatYouGotLibrary.Interfaces
 {
     public interface IReviewRepo
     {
-        /*
+
         IEnumerable<Review> GetReviews();
 
         Review GetReviewById(int recipeId, int userId);
@@ -18,9 +18,9 @@ namespace WhatYouGotLibrary.Interfaces
 
         void AddReview(Review review);
 
-        void DeleteReviewById(int id);
+        void DeleteReviewById(int userId, int recipeId);
 
-       // bool ReviewExists(int id);
-       */
+        bool ReviewExists(int userId, int recipeId);
+
     }
 }
