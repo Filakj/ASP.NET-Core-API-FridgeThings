@@ -19,9 +19,12 @@ export class ReviewListComponent implements OnInit {
 
   getReviews(): void {
     this.reviewService.getReviews()
-      .subscribe(reviews => this.reviews = reviews);  //getReviews() should be an observable
+      .then(reviews => this.reviews = reviews);  //getReviews() should be an observable
   }
 
-  //deleteReview(id: number): void {}
+  deleteReview(id: number): void {
+    this.reviewService.deleteReview(id);
+  }
 
   //addReview(){}
+}

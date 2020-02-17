@@ -5,6 +5,6 @@
         <a routerLink="/{{review.id}}">
             <span class="badge">{{review.id}}</span> {{review.userId}}
         </a>
-        <button class="delete" title="Delete Review" (click)="delete(review.id)">Delete</button>
+        <button class="delete" title="Delete Review" (click)="deleteReview(review.id)">Delete</button>
     </li>
 </ul>
