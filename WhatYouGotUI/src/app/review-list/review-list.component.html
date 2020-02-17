@@ -1,1 +1,10 @@
-<p>List of reviews goes here.</p>
+<h2>My Reviews</h2>
+
+<ul class="reviews">
+    <li *ngFor="let review of reviews">
+        <a routerLink="/{{review.id}}">
+            <span class="badge">{{review.id}}</span> {{review.userId}}
+        </a>
+        <button class="delete" title="Delete Review" (click)="delete(review.id)">Delete</button>
+    </li>
+</ul>
