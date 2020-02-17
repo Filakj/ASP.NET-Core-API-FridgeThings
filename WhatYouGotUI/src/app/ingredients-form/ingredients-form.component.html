@@ -13,6 +13,8 @@
             <a routerLink="/recipe/{{recipe.id}}"  >Title: {{recipe.title}}  </a>
             <td><img src="{{recipe.image}}" class="img-responsive" /></td>
             <button (click)="postRecipes()"> Load Recipe</button>
+            <pre id='used'>usedingredients: {{recipe.usedIngredients | json}}</pre>
+            <pre id='missed'>missedingredients: {{recipe.missedIngredients| json}}</pre>
 
             
         </li>

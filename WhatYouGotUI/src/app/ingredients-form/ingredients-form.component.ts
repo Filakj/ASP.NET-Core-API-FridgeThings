@@ -8,6 +8,8 @@ import { Recipe } from '../Models/fridgethingsModels/recipe';
 import { spRecipe } from '../Models/spoonacularModels/spRecipe';
 import { spInstructions } from '../Models/spoonacularModels/spInstructions';
 
+import { Ingredient } from '../Models/fridgethingsModels/ingredient';
+import {IngredientService} from '../Services/fridgethingsServices/ingredient.service';
 
 
 @Component({
@@ -31,7 +33,8 @@ export class IngredientsFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private spApi: SpoonacularapiService,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private ingredientService: IngredientService
     ) 
     { }
 
@@ -71,7 +74,7 @@ export class IngredientsFormComponent implements OnInit {
     console.log(this.spRecipes)
     console.log("values")
     //console.log(this.spRecipes.values)
-    this.postRecipes();
+    //this.postRecipes();
   }
 
   postRecipes(){ 
@@ -97,6 +100,27 @@ export class IngredientsFormComponent implements OnInit {
     }
     this.recipeService.postRecipe(newRecipe).subscribe(
       (data: Recipe) => {console.log(data);},
+      (error: any) => {console.log(error)}
+      );
+  }
+
+  postIngredient(ingredientId: number, recipeId: number, ImageUrl: string, ingredientName: string, amount: number, unit: string): void {
+    ingredientId = ingredientId;
+    recipeId = recipeId; 
+    ImageUrl = ImageUrl.trim(); 
+    ingredientName = ingredientName.trim(); 
+    amount = amount; 
+    unit = unit.trim(); 
+    var newIngredient: Ingredient = {
+      id: +ingredientId,
+      recipeId: +recipeId, 
+      imageUrl: ImageUrl, 
+      ingredientName: ingredientName, 
+      amount: +amount,
+      unit: unit
+    }
+    this.ingredientService.postIngredient(newIngredient).subscribe(
+      (data: Ingredient) => {console.log(data);},
       (error: any) => {console.log(error)}
       );
   }

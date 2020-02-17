@@ -130,6 +130,57 @@
 </div>
 
 
+<button (click)='getIngredients()'>Get Ingredients from database</button>
+<div *ngIf='ingredients != null'>
+    <h1>Ingredients</h1>
+    <ul>
+        <li *ngFor = 'let ingr of ingredients'>
+            Id: {{ingr.id}} 
+            RecipeId: {{ingr.recipeId}} 
+            Ingredient Name: {{ingr.ingredientName}}
+        </li>
+    </ul>
+</div>
+<div *ngIf='recipes === null'>
+    No ingredients received from database.
+</div>
+
+
+
+<div>
+    <label>
+        Ingredient Id:
+        <input #ingredientId2 />
+    </label>
+    <label>
+        Recipe Id:
+        <input #recipeId2 />
+    </label>
+    <br>
+    <label>
+    Ingredient ImageUrl:
+    <input #ImageUrl2 />
+    </label>
+    <label>
+        Ingredient Name:
+        <input #ingredientName2 />
+    </label>
+    <br>
+    <label>
+        Amount:
+        <input #amount2 />
+    </label>
+    <label>
+        Unit:
+        <input #unit2 />
+    </label>
+
+    <br>
+    <button (click)="postIngredient(ingredientId2.value, recipeId2.value, ImageUrl2.value, ingredientName2.value, amount2.value, unit2.value);
+            ingredientId2.value=''; recipeId2.value=''; ImageUrl2.value=''; ingredientName2.value=''; amount2.value=''; unit2.value=''">
+            post
+    </button>   
+</div>
 
 
 

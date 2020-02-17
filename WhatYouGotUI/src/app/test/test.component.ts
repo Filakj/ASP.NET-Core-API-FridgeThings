@@ -4,6 +4,9 @@ import { SpoonacularapiService } from '../Services/spoonacularServices/spoonacul
 import { Recipe } from '../Models/fridgethingsModels/recipe';
 import { spRecipe } from '../Models/spoonacularModels/spRecipe';
 import { spInstructions } from '../Models/spoonacularModels/spInstructions';
+import { Ingredient } from '../Models/fridgethingsModels/ingredient';
+import {IngredientService} from '../Services/fridgethingsServices/ingredient.service';
+
 
 @Component({
   selector: 'app-test',
@@ -16,8 +19,12 @@ export class TestComponent implements OnInit {
 
   recipes: Recipe[] = null;
   recipeById: Recipe = null;
+
+  ingredients: Ingredient[] = null; 
   
-  constructor(private recipeService: RecipeService, private spApi: SpoonacularapiService) { }
+  constructor(private recipeService: RecipeService, private spApi: SpoonacularapiService,
+     private ingredientService: IngredientService
+     ) { }
 
   //using fridgethingsapi.service
   getRecipes(): void {
@@ -75,6 +82,35 @@ export class TestComponent implements OnInit {
     this.spApi.getInstructionsByRecipeId(tempRecipeId)
       .then(response => this.spInstructions = response);
   }
+
+  
+  postIngredient(ingredientId: number, recipeId: number, ImageUrl: string, ingredientName: string, amount: number, unit: string): void {
+    ingredientId = ingredientId;
+    recipeId = recipeId; 
+    ImageUrl = ImageUrl.trim(); 
+    ingredientName = ingredientName.trim(); 
+    amount = amount; 
+    unit = unit.trim(); 
+    var newIngredient: Ingredient = {
+      id: +ingredientId,
+      recipeId: +recipeId, 
+      imageUrl: ImageUrl, 
+      ingredientName: ingredientName, 
+      amount: +amount,
+      unit: unit
+    }
+    this.ingredientService.postIngredient(newIngredient).subscribe(
+      (data: Ingredient) => {console.log(data);},
+      (error: any) => {console.log(error)}
+      );
+  }
+
+  getIngredients(): void {
+    this.ingredientService.getIngredients()
+        .then(response => this.ingredients = response);
+  }
+
+
   
   ngOnInit(): void {
 
