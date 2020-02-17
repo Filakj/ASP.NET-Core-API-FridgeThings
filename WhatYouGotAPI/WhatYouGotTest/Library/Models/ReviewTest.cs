@@ -11,14 +11,6 @@ namespace WhatYouGotTest.Library.Models
         private readonly Review _review = new Review();
 
         [Fact]
-        public void Id_NonEmptyValue_StoresCorrectly()
-        {
-            int randomIntValue = 1;
-            _review.Id = randomIntValue;
-            Assert.Equal(randomIntValue, _review.Id);
-        }
-
-        [Fact]
         public void UserId_NonEmptyValue_StoresCorrectly()
         {
             int randomIntValue = 1;
