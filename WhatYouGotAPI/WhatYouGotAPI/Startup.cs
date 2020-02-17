@@ -16,6 +16,7 @@ using WhatYouGotDataAccess.Repos;
 using WhatYouGotLibrary.Interfaces;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
+using WhatYouGotDataAccess;
 
 namespace WhatYouGotAPI
 {
