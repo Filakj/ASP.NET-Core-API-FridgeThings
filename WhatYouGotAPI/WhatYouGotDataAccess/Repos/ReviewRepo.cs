@@ -42,16 +42,18 @@ namespace WhatYouGotDataAccess.Repos
             return reviews.Select(Mapper.Map);
         }
 
+        /*
         public bool ReviewExists(int id)
         {
             return _context.Review.Any(e => e.Id == id);
         }
+        */
 
         public void SaveChanges()
         {
             _context.SaveChanges();
         }
-
+        /*
         public void UpdateReview(WhatYouGotLibrary.Models.Review review)
         {
             Entities.Review currentReview = _context.Review.Find(review.Id);
@@ -59,5 +61,6 @@ namespace WhatYouGotDataAccess.Repos
 
             _context.Entry(currentReview).CurrentValues.SetValues(newReview);
         }
+        */
     }
 }

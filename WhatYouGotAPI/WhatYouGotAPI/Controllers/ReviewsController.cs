@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 
 namespace WhatYouGotAPI.Controllers
 {
+
+    /*
+
     [Route("api/[controller]")]
     [ApiController]
     public class ReviewsController : ControllerBase
@@ -41,8 +44,8 @@ namespace WhatYouGotAPI.Controllers
         }
 
         // GET: api/Reviews/5
-        [HttpGet("{id}")]
-        public IActionResult GetReview(int id)
+        [HttpGet("{userId}/{recipeId}")]
+        public IActionResult GetReview(int userId, int recipeId)
         {
             if (!ReviewExists(id))
             {
@@ -122,5 +125,7 @@ namespace WhatYouGotAPI.Controllers
         {
             return _reviewRepo.ReviewExists(id);
         }
+
+    */
     }
-}
+

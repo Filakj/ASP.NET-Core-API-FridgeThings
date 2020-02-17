@@ -1,9 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using WhatYouGotDataAccess.Entities;
 
-namespace WhatYouGotDataAccess
+namespace WhatYouGotDataAccess.Entities
 {
     public partial class FridgeThingsDBContext : DbContext
     {
@@ -25,11 +24,7 @@ namespace WhatYouGotDataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:fridgethings.database.windows.net,1433;Initial Catalog=FridgeThingsDB; User ID=FridgeManager;Password=FridgeThings!;");
-            }
+            //intentionally left blank
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -99,9 +94,10 @@ namespace WhatYouGotDataAccess
 
             modelBuilder.Entity<Review>(entity =>
             {
-                entity.Property(e => e.Comment)
-                    .IsRequired()
-                    .IsUnicode(false);
+                entity.HasKey(e => new { e.UserId, e.RecipeId })
+                    .HasName("PK__Review__085554C748171ECA");
+
+                entity.Property(e => e.Comment).IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

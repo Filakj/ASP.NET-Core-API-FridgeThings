@@ -1,8 +1,12 @@
 <h1 class="text-center">List your ingredients:</h1>
 
 <form [formGroup]="ingredientsForm" (ngSubmit)="onSubmit(ingredientsForm)">
+    <div> 
     <input formControlName="ingredientsString" placeholder="chicken,cheese,fetticinni">
-    <button type="submit">Send</button>
+    </div>
+    <div>
+    <button  type="submit">Send</button>
+    </div>
   </form>
 
   <div *ngIf='spRecipes != null'>

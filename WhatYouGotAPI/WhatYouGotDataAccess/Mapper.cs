@@ -113,7 +113,7 @@ namespace WhatYouGotDataAccess
         {
             return new Entities.Review
             {
-                Id = review.Id,
+               
                 UserId = review.UserId,
                 RecipeId = review.RecipeId,
                 Rating = review.Rating,
@@ -124,7 +124,7 @@ namespace WhatYouGotDataAccess
         {
             return new WhatYouGotLibrary.Models.Review
             {
-                Id = review.Id,
+                
                 UserId = review.UserId,
                 RecipeId = review.RecipeId,
                 Rating = review.Rating,
