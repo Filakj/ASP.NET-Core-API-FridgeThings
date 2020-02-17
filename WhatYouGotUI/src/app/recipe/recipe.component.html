@@ -1,4 +1,13 @@
 <p>recipe works!</p>
+<p> this works</p>
+
+<div>
+<h4>Recipe of Id: {{recipeById.id}}</h4>
+    <h4> Title: {{recipeById.title}} </h4>
+    <br>
+    <td><img src="{{recipeById.imageUrl}}" class="img-responsive" /></td>
+</div>
+
 
 <div *ngIf='spInstructions != null'>
     <h1>Instructions</h1>
@@ -10,6 +19,7 @@
         </div>
     </ol>
 </div>
+
 <div *ngIf='spInstructions === null'>
     No instructions received from Spoonacular.
 </div>

@@ -9,6 +9,7 @@ import { spRecipe } from '../Models/spoonacularModels/spRecipe';
 import { spInstructions } from '../Models/spoonacularModels/spInstructions';
 
 
+
 @Component({
   selector: 'app-ingredients-form',
   templateUrl: './ingredients-form.component.html',
@@ -27,7 +28,12 @@ export class IngredientsFormComponent implements OnInit {
   recipeById: Recipe = null;
   //ingredientsString: string;
 
-  constructor(private fb: FormBuilder, private spApi: SpoonacularapiService) { }
+  constructor(
+    private fb: FormBuilder,
+    private spApi: SpoonacularapiService,
+    private recipeService: RecipeService
+    ) 
+    { }
 
   ngOnInit(): void {
 
@@ -60,10 +66,40 @@ export class IngredientsFormComponent implements OnInit {
     var tempIngredients = form.value.ingredientsString;
     this.spApi.getRecipesByIngredients(tempIngredients)
       .then(response => this.spRecipes = response);
-
       
+    console.log("posting recipies");
+    console.log(this.spRecipes)
+    console.log("values")
+    //console.log(this.spRecipes.values)
+    this.postRecipes();
   }
 
+  postRecipes(){ 
+
+    this.spRecipes.forEach(recipe => {
+
+      var newId = recipe.id;
+      var newTitle = recipe.title;  
+      var newImg = recipe.image; 
+      this.postRecipe(newId, newTitle, newImg ); 
+
+    });
+
+  }
+
+  postRecipe(recipeId: number, recipeTitle: string, recipeImageUrl: string): void {
+    recipeTitle = recipeTitle.trim();
+    recipeImageUrl = recipeImageUrl.trim();
+    var newRecipe: Recipe = {
+      id: +recipeId,
+      title: recipeTitle,
+      imageUrl: recipeImageUrl
+    }
+    this.recipeService.postRecipe(newRecipe).subscribe(
+      (data: Recipe) => {console.log(data);},
+      (error: any) => {console.log(error)}
+      );
+  }
 
 
   get ingredientsList() {

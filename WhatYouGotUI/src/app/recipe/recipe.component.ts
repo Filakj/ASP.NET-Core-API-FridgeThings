@@ -31,12 +31,21 @@ export class RecipeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInstructionsById(); 
+    this.getRecipeById();
   }
 
   getInstructionsById(): void {
     const id = + this.route.snapshot.paramMap.get('id');
+    console.log(id);
     this.spApi.getInstructionsByRecipeId(id)
       .then(response => this.spInstructions = response);
+  }
+
+  getRecipeById(): void {
+    const id = + this.route.snapshot.paramMap.get('id');
+    console.log(id);
+    this.recipeService.getRecipeById(id)
+        .then(response => this.recipeById = response);
   }
 
   

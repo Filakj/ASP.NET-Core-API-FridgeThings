@@ -12,7 +12,7 @@ import { IngredientsFormComponent } from './ingredients-form/ingredients-form.co
 
 const routes: Routes = [
   { path: 'recipe/:id', component: RecipeComponent },
-  { path: 'recipe', component: RecipeComponent },
+  //{ path: 'recipe', component: RecipeComponent },
   { path: 'instructions', component: InstructionsComponent },
   { path: 'review', component: ReviewComponent },
   { path: 'reviews', component: ReviewListComponent },
