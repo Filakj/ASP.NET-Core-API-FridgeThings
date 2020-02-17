@@ -1,1 +1,13 @@
-<p>review works!</p>
+<h2>Write Review</h2>
+
+<div>
+    <label for="rating">Rating:</label>
+    <input type="number" id="rating" name="rating" min="1" max="10" #rating/>
+
+    <label>Comment:
+        <input #comment />
+    </label>
+
+    <button (click)="addReview(5, 1000, rating.value, comment.value)">Post Review</button>
+
+</div>
