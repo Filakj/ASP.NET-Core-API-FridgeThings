@@ -8,6 +8,15 @@
     <td><img src="{{recipeById.imageUrl}}" class="img-responsive" /></td>
 </div>
 
+<div *ngIf='ingredients != null'> 
+    <h1> Ingredients</h1>
+    <ul> 
+        <div *ngFor = 'let ing of ingredients'> 
+            {{ing.ingredientName}}
+        </div>
+    </ul>
+</div>
+
 
 <div *ngIf='spInstructions != null'>
     <h1>Instructions</h1>

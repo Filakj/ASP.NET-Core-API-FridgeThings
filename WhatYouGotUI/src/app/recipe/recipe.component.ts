@@ -9,6 +9,9 @@ import { Recipe } from '../Models/fridgethingsModels/recipe';
 import { spRecipe } from '../Models/spoonacularModels/spRecipe';
 import { spInstructions } from '../Models/spoonacularModels/spInstructions';
 
+import { Ingredient } from '../Models/fridgethingsModels/ingredient';
+import {IngredientService} from '../Services/fridgethingsServices/ingredient.service';
+
 
 @Component({
   selector: 'app-recipe',
@@ -21,17 +24,28 @@ export class RecipeComponent implements OnInit {
 
   recipeById: Recipe = null;
   spInstructions: spInstructions[] = null;
+  ingredients: Ingredient[] = null; 
+
 
   constructor(
     private route: ActivatedRoute, 
     private location: Location,
     private spApi: SpoonacularapiService,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private ingredientService: IngredientService
   ) { }
 
   ngOnInit(): void {
     this.getInstructionsById(); 
     this.getRecipeById();
+    this.getIngredientsByRecipeId(); 
+  }
+
+  getIngredientsByRecipeId(): void{ 
+  const id = + this.route.snapshot.paramMap.get('id');
+  console.log(id);
+  this.ingredientService.getIngredientByRecipeId(id)
+    .then(response => this.ingredients = response);
   }
 
   getInstructionsById(): void {
