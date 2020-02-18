@@ -70,9 +70,7 @@ export class RecipeComponent implements OnInit {
   }
 
   addToFavorites(userId: number, recipeId: number) {
-    let fave: Favorite;
-    fave.userId = userId;
-    fave.recipeId = recipeId;
+    let fave: Favorite = {userId: userId, recipeId: recipeId}
     this.favoriteService.postFavorite(fave).subscribe();
   }
 
