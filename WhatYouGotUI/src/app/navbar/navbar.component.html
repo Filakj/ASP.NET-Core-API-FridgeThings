@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <li> <a routerLink="">Home</a></li>
         <li> <a routerLink="/ingredients-form">New Recipe</a></li>
-        <li> <a routerLink="/favorites/favoritesbyuserid/:userId">Your Favorites</a></li>
+        <li> <a routerLink="/favorites/favoritesbyuserid/{{role}}">Your Favorites</a></li>
         <li> <a routerLink="/reviews">Your Reviews</a></li>
         <li> <button (click)='signout()'>Sign Out </button></li>
     </nav>
