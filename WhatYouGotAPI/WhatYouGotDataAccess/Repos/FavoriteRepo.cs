@@ -28,6 +28,21 @@ namespace WhatYouGotDataAccess.Repos
             _context.Remove(favorite);
         }
 
+        public void DeleteFavoriteById(int userId, int recipeId)
+        {
+            IQueryable<Entities.Favorite> favorites = from f in _context.Favorite
+                                                  where f.UserId == userId & f.RecipeId == recipeId
+                                                  select f;
+
+            Entities.Favorite favorite = favorites.FirstOrDefault();
+            _context.Remove(favorite);
+        }
+
+        public bool FavoriteByUserIdAndRecipeIdExists(int userId, int recipeId)
+        {
+            return _context.Review.Any(favorite => favorite.UserId == userId && favorite.RecipeId == recipeId);
+        }
+
         public bool FavoriteByUserIdExists(int userId)
         {
             return _context.Favorite.Any(favorite => favorite.UserId == userId);
