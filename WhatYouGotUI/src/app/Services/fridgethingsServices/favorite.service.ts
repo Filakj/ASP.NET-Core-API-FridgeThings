@@ -21,6 +21,7 @@ export class FavoriteService {
   }
 
   getFavoritesByUserId(userId: number): Promise<Favorite[]> {
+    console.log("innerfucntion");
     var completeUrl = `${this.favoriteUrl}FavoritesByUserId/${userId}`;
     console.log(completeUrl);
     return this.httpClient.get<Favorite[]>(completeUrl).toPromise();

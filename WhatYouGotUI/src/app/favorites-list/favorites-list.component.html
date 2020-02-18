@@ -2,9 +2,23 @@
 
 <ul class="favorites">
     <li *ngFor="let favorite of favorites">
-        <a routerLink="/{{favorite.userId}}/{{favorite.recipeId}}">
+        <a routerLink="/recipie/{{favorite.recipeId}}">
             {{favorite.recipeId}}
         </a>
         <button class="delete" title="Remove from Favorites" (click)="deleteFavorite(favorite.userId, favorite.recipeId)">Delete</button>
     </li>
 </ul>
+
+<!-- 
+<div *ngIf='  favoriteRecipes != null'>   
+    <li *ngFor="let rec of favoriteRecipes">
+        <a routerLink="/recipie/{{rec.id}}">
+            {{rec.id}}
+        </a>
+        {{rec.title}}
+        <td><img src="{{recipe.image}}" class="img-responsive" /></td>
+        <button class="delete" title="Remove from Favorites" (click)="deleteFavorite(favorite.userId, favorite.recipeId)">Delete</button>
+    </li>
+</div>
+
+-->
