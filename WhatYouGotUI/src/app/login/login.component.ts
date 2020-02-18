@@ -51,8 +51,10 @@ onSubmit(form: FormGroup) {
       localStorage.setItem("First Name", user.firstName);
       localStorage.setItem("Last Name", user.lastName);
       alert(localStorage.getItem("Account Id"));
+      location.href = "http://localhost:4200/"
+      //location.reload();
 
-      
+
     }
     
   });
