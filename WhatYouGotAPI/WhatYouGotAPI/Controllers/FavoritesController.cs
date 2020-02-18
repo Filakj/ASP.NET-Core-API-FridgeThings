@@ -134,6 +134,23 @@ namespace WhatYouGotAPI.Controllers
             return Content($"Favorite with id: {id} has been deleted.");
         }
 
+        //DELETE: api/Reviews/5
+        [HttpDelete("{userId}/{recipeId}")]
+        public IActionResult DeleteReview(int userId, int recipeId)
+        {
+            if (!FavoriteExistsByUserIdAndRecipeId(userId, recipeId))
+            {
+                _logger.LogWarning($"Favorite with user id: {userId} and recipe id: {recipeId} does not exist.");
+                return NotFound();
+            }
+
+            _favoriteRepo.DeleteFavoriteById(userId, recipeId);
+            _favoriteRepo.SaveChanges();
+
+            _logger.LogInformation($"Favorite with user id: {userId} and recipe id: {recipeId} has been deleted.");
+            return Content($"Favorite with user id: {userId} and recipe id: {recipeId} has been deleted.");
+        }
+
         private bool FavoriteExists(int id)
         {
             return _favoriteRepo.FavoriteExists(id);
@@ -142,6 +159,11 @@ namespace WhatYouGotAPI.Controllers
         private bool FavoriteByUserIdExists(int userId)
         {
             return _favoriteRepo.FavoriteByUserIdExists(userId);
+        }
+
+        private bool FavoriteExistsByUserIdAndRecipeId(int userId, int recipeId)
+        {
+            return _favoriteRepo.FavoriteByUserIdAndRecipeIdExists(userId, recipeId);
         }
     }
 }

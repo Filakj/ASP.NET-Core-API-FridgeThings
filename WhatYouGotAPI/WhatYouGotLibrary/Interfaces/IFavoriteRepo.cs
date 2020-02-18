@@ -21,8 +21,12 @@ namespace WhatYouGotLibrary.Interfaces
 
         void DeleteFavoriteById(int id);
 
+        void DeleteFavoriteById(int userId, int recipeId);
+
         bool FavoriteExists(int id);
 
         bool FavoriteByUserIdExists(int userId);
+
+        bool FavoriteByUserIdAndRecipeIdExists(int userId, int recipeId);
     }
 }
