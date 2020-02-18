@@ -28,6 +28,11 @@ namespace WhatYouGotDataAccess.Repos
             _context.Remove(favorite);
         }
 
+        public bool FavoriteByUserIdExists(int userId)
+        {
+            return _context.Favorite.Any(favorite => favorite.UserId == userId);
+        }
+
         public bool FavoriteExists(int id)
         {
             return _context.Recipe.Any(e => e.Id == id);
@@ -43,6 +48,15 @@ namespace WhatYouGotDataAccess.Repos
         public IEnumerable<WhatYouGotLibrary.Models.Favorite> GetFavorites()
         {
             IQueryable<Entities.Favorite> favorites = _context.Favorite;
+
+            return favorites.Select(Mapper.Map);
+        }
+
+        public IEnumerable<WhatYouGotLibrary.Models.Favorite> GetFavoritesByUserId(int userId)
+        {
+            IQueryable<Favorite> favorites = from f in _context.Favorite
+                                             where f.UserId == userId
+                                             select f;
 
             return favorites.Select(Mapper.Map);
         }

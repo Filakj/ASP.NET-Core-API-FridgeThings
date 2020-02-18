@@ -11,6 +11,8 @@ namespace WhatYouGotLibrary.Interfaces
 
         Favorite GetFavoriteById(int id);
 
+        IEnumerable<Favorite> GetFavoritesByUserId(int userId);
+
         void UpdateFavorite(Favorite favorite);
 
         void SaveChanges();
@@ -20,5 +22,7 @@ namespace WhatYouGotLibrary.Interfaces
         void DeleteFavoriteById(int id);
 
         bool FavoriteExists(int id);
+
+        bool FavoriteByUserIdExists(int userId);
     }
 }
