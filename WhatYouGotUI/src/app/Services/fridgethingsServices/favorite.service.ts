@@ -20,10 +20,10 @@ export class FavoriteService {
     return this.httpClient.get<Favorite[]>(this.favoriteUrl).toPromise();
   }
 
-  getFavoriteById(userId: number, recipeId: number): Promise<Favorite> {
-    var completeUrl = `${this.favoriteUrl}${userId}${recipeId}`;
+  getFavoritesById(userId: number): Promise<Favorite[]> {
+    var completeUrl = `${this.favoriteUrl}FavoritesByUserId/${userId}`;
     console.log(completeUrl);
-    return this.httpClient.get<Favorite>(completeUrl).toPromise();
+    return this.httpClient.get<Favorite[]>(completeUrl).toPromise();
   }
 
   postFavorite(newFavorite: Favorite): Observable<Favorite> {

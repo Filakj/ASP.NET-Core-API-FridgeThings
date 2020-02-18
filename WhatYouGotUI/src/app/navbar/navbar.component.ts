@@ -10,6 +10,7 @@ export class NavbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    const userId = +localStorage.getItem('Account Id');
   }
 
 }
