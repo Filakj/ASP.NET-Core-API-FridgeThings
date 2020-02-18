@@ -2,7 +2,7 @@
 
 <ul class="favorites">
     <li *ngFor="let favorite of favorites">
-        <a routerLink="/recipie/{{favorite.recipeId}}">
+        <a routerLink="/recipe/{{favorite.recipeId}}">
             {{favorite.recipeId}}
         </a>
         <button class="delete" title="Remove from Favorites" (click)="deleteFavorite(favorite.userId, favorite.recipeId)">Delete</button>

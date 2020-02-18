@@ -28,6 +28,7 @@ export class RecipeComponent implements OnInit {
   recipeById: Recipe = null;
   spInstructions: spInstructions[] = null;
   ingredients: Ingredient[] = null; 
+  role: number;
 
 
   constructor(
@@ -44,6 +45,7 @@ export class RecipeComponent implements OnInit {
     this.getRecipeById();
     this.getIngredientsByRecipeId();
     localStorage.setItem('recipeId', `${this.recipeId}`); 
+    this.role = +this.readLocalStorageValue('Account Id');
   }
 
   getIngredientsByRecipeId(): void{ 
@@ -68,10 +70,12 @@ export class RecipeComponent implements OnInit {
   }
 
   addToFavorites(userId: number, recipeId: number) {
-    let fave: Favorite;
-    fave.userId = userId;
-    fave.recipeId = recipeId;
-    this.favoriteService.postFavorite(fave);
+    let fave: Favorite = {userId: userId, recipeId: recipeId}
+    this.favoriteService.postFavorite(fave).subscribe();
   }
+
+  readLocalStorageValue(key: string): string {
+    return localStorage.getItem(key);
+}
 
 }

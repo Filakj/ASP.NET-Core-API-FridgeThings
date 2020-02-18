@@ -40,7 +40,7 @@ export class FavoriteService {
   }
 
   deleteFavorite(userId: number, recipeId: number): Observable<Favorite> {
-    var completeUrl = `${this.favoriteUrl}${userId}${recipeId}`;
+    var completeUrl = `${this.favoriteUrl}${userId}/${recipeId}`;
     console.log(completeUrl);
     return this.httpClient.delete<Favorite>(completeUrl, this.httpOptions);
   }
