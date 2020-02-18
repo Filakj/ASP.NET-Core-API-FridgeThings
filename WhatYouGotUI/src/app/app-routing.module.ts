@@ -9,6 +9,7 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from  './signup/signup.component';
 import { IngredientsFormComponent } from './ingredients-form/ingredients-form.component'
+import { UserReviewsComponent } from './user-reviews/user-reviews.component';
 
 const routes: Routes = [
   { path: 'recipe/:id', component: RecipeComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'recipes', component: RecipeListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'ingredients-form', component: IngredientsFormComponent}
+  { path: 'ingredients-form', component: IngredientsFormComponent},
+  { path: 'userReviews', component: UserReviewsComponent}
 ];
 
 

@@ -1,0 +1,14 @@
+<h1>{{username}}'s Reviews</h1>
+
+<div *ngIf='reviews != null'>
+    <ul>
+        <li *ngFor='let review of reviews'>
+            <div>Recipe id: {{review.recipeId}}, rating: {{review.rating}}/10</div>
+            <div>"{{review.comment}}"</div>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf='reviews == null'>
+    <em><h5>Wow. . . {{username}} has not written any reviews.</h5></em>
+</div>
