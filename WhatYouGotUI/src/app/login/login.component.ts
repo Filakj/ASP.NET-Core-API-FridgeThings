@@ -51,6 +51,8 @@ onSubmit(form: FormGroup) {
       localStorage.setItem("First Name", user.firstName);
       localStorage.setItem("Last Name", user.lastName);
       alert(localStorage.getItem("Account Id"));
+
+      
     }
     
   });
