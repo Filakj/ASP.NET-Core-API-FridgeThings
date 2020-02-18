@@ -26,10 +26,13 @@ export class LoginComponent implements OnInit {
   }
   */
  ngOnInit(): void {
+
+
   this.loginForm = this.fb.group({
     username: '', 
     password: '',
 });
+  this.getAccounts();
 }
 
 onSubmit(form: FormGroup) {
@@ -37,6 +40,16 @@ onSubmit(form: FormGroup) {
   console.log('Username', form.value.username);
   console.log('Password', form.value.password);
 
+  this.Accounts.forEach(user => {
+    var x = user.username; 
+    var y = user.passphrase; 
+    if(x == form.value.username && y == form.value.password){ 
+      alert("Welcome " + user.firstName + " " + user.lastName);
+      console.log("Hello" );
+      
+    }
+    
+  });
 
 }
 
@@ -45,6 +58,4 @@ getAccounts(){
   .then(response => this.Accounts = response);
 }
 
-
-  
 }
