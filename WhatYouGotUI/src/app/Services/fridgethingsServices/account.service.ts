@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Account } from '../../Models/fridgethingsModels/account';
 import { Observable } from 'rxjs';
+import { AccountRetrived } from 'src/app/Models/fridgethingsModels/accountRetrived';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,11 @@ export class AccountService {
   getAccounts(): Promise<Account[]> {
     console.log(this.accountUrl);
     return this.httpClient.get<Account[]>(this.accountUrl).toPromise();
+  }
+
+  getAccountsR(): Promise<AccountRetrived[]> {
+    console.log(this.accountUrl);
+    return this.httpClient.get<AccountRetrived[]>(this.accountUrl).toPromise();
   }
 
   getAccountById(id: number): Promise<Account> {

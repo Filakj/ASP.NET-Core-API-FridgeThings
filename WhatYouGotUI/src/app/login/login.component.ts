@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { AccountService } from '../Services/fridgethingsServices/account.service';
-import { Account } from '../Models/fridgethingsModels/account';
+import { AccountRetrived } from '../Models/fridgethingsModels/accountRetrived';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ import { Account } from '../Models/fridgethingsModels/account';
 export class LoginComponent implements OnInit {
 
  loginForm: FormGroup; 
- Accounts: Account[]; 
+ AccountsR: AccountRetrived[]; 
 
 
  constructor(
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     username: '', 
     password: '',
 });
-  this.getAccounts();
+  this.getAccountsR();
 }
 
 onSubmit(form: FormGroup) {
@@ -40,22 +40,26 @@ onSubmit(form: FormGroup) {
   console.log('Username', form.value.username);
   console.log('Password', form.value.password);
 
-  this.Accounts.forEach(user => {
+  this.AccountsR.forEach(user => {
     var x = user.username; 
     var y = user.passphrase; 
     if(x == form.value.username && y == form.value.password){ 
       alert("Welcome " + user.firstName + " " + user.lastName);
       console.log("Hello" );
-      
+      localStorage.setItem("Account Id",user.id.toString()); 
+      localStorage.setItem("Username",x); 
+      localStorage.setItem("First Name", user.firstName);
+      localStorage.setItem("Last Name", user.lastName);
+      alert(localStorage.getItem("Account Id"));
     }
     
   });
 
 }
 
-getAccounts(){ 
-  this.accountService.getAccounts()
-  .then(response => this.Accounts = response);
+getAccountsR(){ 
+  this.accountService.getAccountsR()
+  .then(response => this.AccountsR = response);
 }
 
 }
