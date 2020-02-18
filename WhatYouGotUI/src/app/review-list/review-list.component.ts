@@ -3,6 +3,7 @@ import { ReviewService } from '../Services/fridgethingsServices/review.service';
 import { Review } from '../Models/fridgethingsModels/review';
 import { ReviewComponent } from '../review/review.component';
 import { RecipeService } from '../Services/fridgethingsServices/recipe.service';
+import { AccountService } from '../Services/fridgethingsServices/account.service';
 
 @Component({
   selector: 'app-review-list',
@@ -14,7 +15,9 @@ export class ReviewListComponent implements OnInit {
   recipeTitle: string;
   reviews: Review[] = null;
 
-  constructor(private reviewService: ReviewService, private recipeService: RecipeService) { }
+  constructor(private reviewService: ReviewService, 
+    private recipeService: RecipeService,
+    private accountService: AccountService) { }
 
   ngOnInit(): void {
     this.getReviewsByRecipeId();
@@ -34,5 +37,4 @@ export class ReviewListComponent implements OnInit {
     this.recipeService.getRecipeById(this.recipeId)
       .then(recipe => this.recipeTitle = recipe.title);
   }
-
 }
