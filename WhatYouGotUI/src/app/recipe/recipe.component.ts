@@ -27,7 +27,8 @@ export class RecipeComponent implements OnInit {
   recipeId = +this.route.snapshot.paramMap.get('id');
   recipeById: Recipe = null;
   spInstructions: spInstructions[] = null;
-  ingredients: Ingredient[] = null; 
+  ingredients: Ingredient[] = null;
+  role: number;
 
 
   constructor(
@@ -43,7 +44,8 @@ export class RecipeComponent implements OnInit {
     this.getInstructionsById(); 
     this.getRecipeById();
     this.getIngredientsByRecipeId();
-    localStorage.setItem('recipeId', `${this.recipeId}`); 
+    localStorage.setItem('recipeId', `${this.recipeId}`);
+    this.role = +localStorage.getItem('Account Id');
   }
 
   getIngredientsByRecipeId(): void{ 
@@ -68,10 +70,8 @@ export class RecipeComponent implements OnInit {
   }
 
   addToFavorites(userId: number, recipeId: number) {
-    let fave: Favorite;
-    fave.userId = userId;
-    fave.recipeId = recipeId;
-    this.favoriteService.postFavorite(fave);
+    let fave: Favorite = {userId: userId, recipeId: recipeId }
+    this.favoriteService.postFavorite(fave).subscribe();
   }
 
 }
