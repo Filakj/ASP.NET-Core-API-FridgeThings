@@ -23,7 +23,7 @@ export class FavoritesListComponent implements OnInit {
 
   getFavorites(userId: number): void {
     const uid = +this.route.snapshot.paramMap.get('uid');
-    this.favoriteService.getFavoritesById(userId)
+    this.favoriteService.getFavoritesByUserId(userId)
     .then(favorites => this.favorites = favorites);
   }
 
