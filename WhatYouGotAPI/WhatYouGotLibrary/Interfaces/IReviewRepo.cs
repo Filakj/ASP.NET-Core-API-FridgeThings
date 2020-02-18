@@ -12,6 +12,10 @@ namespace WhatYouGotLibrary.Interfaces
 
         Review GetReviewById(int recipeId, int userId);
 
+        IEnumerable<Review> GetReviewsByUserId(int userId);
+
+        IEnumerable<Review> GetReviewsByRecipeId(int recipeId);
+
         void UpdateReview(Review review);
 
         void SaveChanges();
@@ -21,6 +25,10 @@ namespace WhatYouGotLibrary.Interfaces
         void DeleteReviewById(int userId, int recipeId);
 
         bool ReviewExists(int userId, int recipeId);
+
+        bool ReviewByUserIdExists(int userId);
+
+        bool ReviewByRecipeIdExists(int recipeId);
 
     }
 }

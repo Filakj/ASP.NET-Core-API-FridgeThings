@@ -40,7 +40,7 @@ namespace WhatYouGotAPI.Controllers
 
         }
 
-        // GET: api/Recipes/5
+        // GET: api/Favorites/5
         [HttpGet("{id}")]
         public IActionResult GetFavorite(int id)
         {
@@ -56,7 +56,23 @@ namespace WhatYouGotAPI.Controllers
             return Ok(favorite);
         }
 
-        // PUT: api/Recipes/5
+        [HttpGet("FavoritesByUserId/{userId}")]
+        public IActionResult GetFavoritesByUserId(int userId)
+        {
+            if (!FavoriteByUserIdExists(userId))
+            {
+                _logger.LogWarning($"Favorite with user id: {userId} does not exist.");
+                return NotFound();
+            }
+
+            IEnumerable<Favorite> favorites = _favoriteRepo.GetFavoritesByUserId(userId);
+
+            _logger.LogInformation($"Getting favorites with user id: {userId}");
+            return Ok(favorites);
+        }
+
+
+        // PUT: api/Favorites/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
@@ -82,7 +98,7 @@ namespace WhatYouGotAPI.Controllers
 
         }
 
-        // POST: api/Recipes
+        // POST: api/Favorites
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
@@ -101,7 +117,7 @@ namespace WhatYouGotAPI.Controllers
             return CreatedAtAction(nameof(GetFavorite), new { id = favorite.Id }, favorite);
         }
 
-        // DELETE: api/Recipes/5
+        // DELETE: api/Favorites/5
         [HttpDelete("{id}")]
         public IActionResult DeleteFavorite(int id)
         {
@@ -121,6 +137,11 @@ namespace WhatYouGotAPI.Controllers
         private bool FavoriteExists(int id)
         {
             return _favoriteRepo.FavoriteExists(id);
+        }
+
+        private bool FavoriteByUserIdExists(int userId)
+        {
+            return _favoriteRepo.FavoriteByUserIdExists(userId);
         }
     }
 }

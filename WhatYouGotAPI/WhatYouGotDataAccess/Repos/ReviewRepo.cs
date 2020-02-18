@@ -24,7 +24,7 @@ namespace WhatYouGotDataAccess.Repos
 
         public void DeleteReviewById(int userId, int recipeId)
         {
-            IQueryable<Review> reviews = from r in _context.Review
+            IQueryable<Entities.Review> reviews = from r in _context.Review
                                          where r.UserId == userId & r.RecipeId == recipeId
                                          select r;
 
@@ -34,7 +34,7 @@ namespace WhatYouGotDataAccess.Repos
 
         public WhatYouGotLibrary.Models.Review GetReviewById(int userId, int recipeId)
         {
-            IQueryable<Review> reviews = from r in _context.Review
+            IQueryable<Entities.Review> reviews = from r in _context.Review
                                          where r.UserId == userId & r.RecipeId == recipeId
                                          select r;
             Entities.Review review = reviews.FirstOrDefault();
@@ -49,6 +49,34 @@ namespace WhatYouGotDataAccess.Repos
             return reviews.Select(Mapper.Map);
         }
 
+        public IEnumerable<WhatYouGotLibrary.Models.Review> GetReviewsByRecipeId(int recipeId)
+        {
+            IQueryable<Entities.Review> reviews = from r in _context.Review
+                                                  where r.RecipeId == recipeId
+                                                  select r;
+
+            return reviews.Select(Mapper.Map);
+        }
+
+        public IEnumerable<WhatYouGotLibrary.Models.Review> GetReviewsByUserId(int userId)
+        {
+            IQueryable<Entities.Review> reviews = from r in _context.Review
+                                         where r.UserId == userId
+                                         select r;
+
+            return reviews.Select(Mapper.Map);
+        }
+
+        public bool ReviewByRecipeIdExists(int recipeId)
+        {
+            return _context.Review.Any(review => review.RecipeId == recipeId);
+        }
+
+        public bool ReviewByUserIdExists(int userId)
+        {
+            return _context.Review.Any(review => review.UserId == userId);
+        }
+
         public bool ReviewExists(int userId, int recipeId)
         {
             return _context.Review.Any(review => review.UserId == userId && review.RecipeId == recipeId);
@@ -61,7 +89,7 @@ namespace WhatYouGotDataAccess.Repos
         
         public void UpdateReview(WhatYouGotLibrary.Models.Review review)
         {
-            IQueryable<Review> reviews = from r in _context.Review
+            IQueryable<Entities.Review> reviews = from r in _context.Review
                                          where r.UserId == review.UserId & r.RecipeId == review.RecipeId
                                          select r;
 

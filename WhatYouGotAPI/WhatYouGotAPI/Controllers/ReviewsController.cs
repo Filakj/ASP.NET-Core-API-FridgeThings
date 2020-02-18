@@ -56,6 +56,36 @@ namespace WhatYouGotAPI.Controllers
             return Ok(review);
         }
 
+        [HttpGet("ReviewsByUserId/{userId}")]
+        public IActionResult GetReviewsByUserId(int userId)
+        {
+            if (!ReviewByUserIdExists(userId))
+            {
+                _logger.LogWarning($"Review with user id: {userId} does not exist.");
+                return NotFound();
+            }
+
+            IEnumerable<Review> reviews = _reviewRepo.GetReviewsByUserId(userId);
+
+            _logger.LogInformation($"Getting review with user id: {userId}.");
+            return Ok(reviews);
+        }
+
+        [HttpGet("ReviewsByRecipeId/{recipeId}")]
+        public IActionResult GetReviewsByRecipeId(int recipeId)
+        {
+            if (!ReviewByRecipeIdExists(recipeId))
+            {
+                _logger.LogWarning($"Review with user id: {recipeId} does not exist.");
+                return NotFound();
+            }
+
+            IEnumerable<Review> reviews = _reviewRepo.GetReviewsByRecipeId(recipeId);
+
+            _logger.LogInformation($"Getting review with user id: {recipeId}.");
+            return Ok(reviews);
+        }
+
         //PUT: api/Reviews/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -122,6 +152,16 @@ namespace WhatYouGotAPI.Controllers
         private bool ReviewExists(int userId, int recipeId)
         {
             return _reviewRepo.ReviewExists(userId, recipeId);
+        }
+
+        private bool ReviewByUserIdExists(int userId)
+        {
+            return _reviewRepo.ReviewByUserIdExists(userId);
+        }
+
+        private bool ReviewByRecipeIdExists(int recipeId)
+        {
+            return _reviewRepo.ReviewByRecipeIdExists(recipeId);
         }
 
     }
