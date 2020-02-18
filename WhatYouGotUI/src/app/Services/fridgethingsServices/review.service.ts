@@ -21,9 +21,21 @@ export class ReviewService {
   }
 
   getReviewById(userId: number, recipeId: number): Promise<Review> {
-    var completeUrl = `${this.reviewUrl}${userId}${recipeId}`;
+    var completeUrl = `${this.reviewUrl}${userId}/${recipeId}`;
     console.log(completeUrl);
     return this.httpClient.get<Review>(completeUrl).toPromise();
+  }
+
+  getReviewsByRecipeId(recipeId: number): Promise<Review[]> {
+    var completeUrl = `${this.reviewUrl}ReviewsByRecipeId/${recipeId}`;
+    console.log(completeUrl);
+    return this.httpClient.get<Review[]>(completeUrl).toPromise();
+  }
+
+  getReviewsByUserId(userId: number): Promise<Review[]> {
+    var completeUrl =  `${this.reviewUrl}ReviewsByUserId/${userId}`;
+    console.log(completeUrl);
+    return this.httpClient.get<Review[]>(completeUrl).toPromise();
   }
 
   postReview(newReview: Review): Observable<Review> {

@@ -20,7 +20,7 @@ export class FavoriteService {
     return this.httpClient.get<Favorite[]>(this.favoriteUrl).toPromise();
   }
 
-  getFavoritesById(userId: number): Promise<Favorite[]> {
+  getFavoritesByUserId(userId: number): Promise<Favorite[]> {
     var completeUrl = `${this.favoriteUrl}FavoritesByUserId/${userId}`;
     console.log(completeUrl);
     return this.httpClient.get<Favorite[]>(completeUrl).toPromise();
