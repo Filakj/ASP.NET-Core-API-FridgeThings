@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'instructions', component: InstructionsComponent },
   { path: 'review', component: ReviewComponent },
   { path: 'reviews/:uid', component: ReviewListComponent },
-  { path: 'favorites/:uid', component: FavoritesListComponent },
+  { path: 'favorites/favoritesbyuserid/:uid', component: FavoritesListComponent },
   { path: 'recipes', component: RecipeListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },

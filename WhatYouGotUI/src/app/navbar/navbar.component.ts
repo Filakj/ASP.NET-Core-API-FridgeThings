@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.role = this.readLocalStorageValue('Account Id');
+    const userId = +localStorage.getItem('Account Id');
   }
 
   readLocalStorageValue(key: string): string {
