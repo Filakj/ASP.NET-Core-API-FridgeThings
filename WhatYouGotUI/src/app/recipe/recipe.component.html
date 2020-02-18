@@ -38,6 +38,7 @@
 <button routerLink="/reviews">See Reviews</button> -->
 
 <!-- Bootstrap -->
+<div style="padding-bottom: 30px;">
 <div class="container">
     <div class="row">
       <div class="col-3">
@@ -76,9 +77,14 @@
                 </ol>
             </div>
             <br>
+            <span style="padding: 15px;">
             <button class="btn btn-success" routerLink="/review">Create review</button>
+            </span>
+            <span style="padding: 15px;">
             <button class="btn btn-primary" routerLink="/reviews">See reviews</button>
+            </span>
         </div>
+
     </div>
     </div>
 </div>
@@ -86,4 +92,4 @@
 <div style="text-align: center; color: lightslategray;" *ngIf='spInstructions === null'>
     <em>(No instructions received from Spoonacular)</em>
 </div>
-
+</div>
