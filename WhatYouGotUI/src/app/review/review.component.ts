@@ -16,7 +16,7 @@ export class ReviewComponent implements OnInit {
   }
 
   addReview(userId: number, recipeId: number, rating: number, comment: string) {
-    var review: Review = {id: 1001, userId: userId, recipeId: recipeId, rating: rating, comment: comment}
+    var review: Review = {userId: userId, recipeId: recipeId, rating: rating, comment: comment}
 
     this.reviewService.postReview(review);
   }
