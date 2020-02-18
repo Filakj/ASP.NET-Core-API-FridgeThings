@@ -15,7 +15,7 @@ const routes: Routes = [
   //{ path: 'recipe', component: RecipeComponent },
   { path: 'instructions', component: InstructionsComponent },
   { path: 'review', component: ReviewComponent },
-  { path: 'reviews/:uid', component: ReviewListComponent },
+  { path: 'reviews', component: ReviewListComponent },
   { path: 'favorites/favoritesbyuserid/:uid', component: FavoritesListComponent },
   { path: 'recipes', component: RecipeListComponent },
   { path: 'login', component: LoginComponent },
