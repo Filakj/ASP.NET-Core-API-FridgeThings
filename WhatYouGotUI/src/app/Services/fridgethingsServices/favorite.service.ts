@@ -20,8 +20,8 @@ export class FavoriteService {
     return this.httpClient.get<Favorite[]>(this.favoriteUrl).toPromise();
   }
 
-  getFavoriteById(id: number): Promise<Favorite> {
-    var completeUrl = `${this.favoriteUrl}${id}`;
+  getFavoriteById(userId: number, recipeId: number): Promise<Favorite> {
+    var completeUrl = `${this.favoriteUrl}${userId}${recipeId}`;
     console.log(completeUrl);
     return this.httpClient.get<Favorite>(completeUrl).toPromise();
   }
@@ -33,13 +33,13 @@ export class FavoriteService {
   }
 
   putFavorite(newFavorite: Favorite): Observable<any> {
-    var completeUrl = `${this.favoriteUrl}${newFavorite.id}`;
+    var completeUrl = `${this.favoriteUrl}${newFavorite.userId}${newFavorite.recipeId}`;
     console.log(completeUrl);
     return this.httpClient.put(completeUrl, newFavorite, this.httpOptions);
   }
 
-  deleteFavorite(id: number): Observable<Favorite> {
-    var completeUrl = `${this.favoriteUrl}${id}`;
+  deleteFavorite(userId: number, recipeId: number): Observable<Favorite> {
+    var completeUrl = `${this.favoriteUrl}${userId}${recipeId}`;
     console.log(completeUrl);
     return this.httpClient.delete<Favorite>(completeUrl, this.httpOptions);
   }

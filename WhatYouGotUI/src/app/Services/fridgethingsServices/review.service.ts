@@ -20,8 +20,8 @@ export class ReviewService {
     return this.httpClient.get<Review[]>(this.reviewUrl).toPromise();
   }
 
-  getReviewById(id: number): Promise<Review> {
-    var completeUrl = `${this.reviewUrl}${id}`;
+  getReviewById(userId: number, recipeId: number): Promise<Review> {
+    var completeUrl = `${this.reviewUrl}${userId}${recipeId}`;
     console.log(completeUrl);
     return this.httpClient.get<Review>(completeUrl).toPromise();
   }
@@ -33,7 +33,7 @@ export class ReviewService {
   }
 
   putReview(newReview: Review): Observable<any> {
-    var completeUrl = `${this.reviewUrl}${newReview.id}`;
+    var completeUrl = `${this.reviewUrl}${newReview.userId}${newReview.recipeId}`;
     console.log(completeUrl);
     return this.httpClient.put(completeUrl, newReview, this.httpOptions);
   }

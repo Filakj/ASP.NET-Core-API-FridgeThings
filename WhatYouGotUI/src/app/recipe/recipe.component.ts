@@ -12,6 +12,9 @@ import { spInstructions } from '../Models/spoonacularModels/spInstructions';
 import { Ingredient } from '../Models/fridgethingsModels/ingredient';
 import {IngredientService} from '../Services/fridgethingsServices/ingredient.service';
 
+import { Favorite } from '../Models/fridgethingsModels/favorite';
+import { FavoriteService } from '../Services/fridgethingsServices/favorite.service';
+
 
 @Component({
   selector: 'app-recipe',
@@ -32,7 +35,8 @@ export class RecipeComponent implements OnInit {
     private location: Location,
     private spApi: SpoonacularapiService,
     private recipeService: RecipeService,
-    private ingredientService: IngredientService
+    private ingredientService: IngredientService,
+    private favoriteService: FavoriteService
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +66,11 @@ export class RecipeComponent implements OnInit {
         .then(response => this.recipeById = response);
   }
 
-  
+  addToFavorites(userId: number, recipeId: number) {
+    let fave: Favorite;
+    fave.userId = userId;
+    fave.recipeId = recipeId;
+    this.favoriteService.postFavorite(fave);
+  }
 
 }
