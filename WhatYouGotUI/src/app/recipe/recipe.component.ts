@@ -24,7 +24,7 @@ import { FavoriteService } from '../Services/fridgethingsServices/favorite.servi
 
 
 export class RecipeComponent implements OnInit {
-
+  recipeId = +this.route.snapshot.paramMap.get('id');
   recipeById: Recipe = null;
   spInstructions: spInstructions[] = null;
   ingredients: Ingredient[] = null; 
@@ -42,7 +42,8 @@ export class RecipeComponent implements OnInit {
   ngOnInit(): void {
     this.getInstructionsById(); 
     this.getRecipeById();
-    this.getIngredientsByRecipeId(); 
+    this.getIngredientsByRecipeId();
+    localStorage.setItem('recipeId', `${this.recipeId}`); 
   }
 
   getIngredientsByRecipeId(): void{ 

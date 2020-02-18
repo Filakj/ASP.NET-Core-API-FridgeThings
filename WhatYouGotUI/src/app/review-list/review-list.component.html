@@ -1,10 +1,14 @@
-<h2>My Reviews</h2>
+<div *ngIf='reviews != null'>
+    <h2>{{recipeTitle}} Reviews</h2>
 
-<!--<ul class="reviews">
-    <li *ngFor="let review of reviews">
-        <a routerLink="/{{review.id}}">
-            <span class="badge">{{review.id}}</span> {{review.userId}}
-        </a>
-        <button class="delete" title="Delete Review" (click)="deleteReview(review.id)">Delete</button>
-    </li>
-</ul>-->
+    <ul>
+        <li *ngFor='let review of reviews'>
+            <div>- User {{review.userId}} gave it a rating of {{review.rating!}}/10!</div>
+            <div>"{{review.comment}}"</div>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf='reviews == null'>
+    <h1>Sorry, this recipe does not have reviews.</h1>
+</div>
