@@ -40,7 +40,7 @@ namespace WhatYouGotDataAccess.Repos
 
         public bool FavoriteByUserIdAndRecipeIdExists(int userId, int recipeId)
         {
-            return _context.Review.Any(favorite => favorite.UserId == userId && favorite.RecipeId == recipeId);
+            return _context.Favorite.Any(favorite => favorite.UserId == userId && favorite.RecipeId == recipeId);
         }
 
         public bool FavoriteByUserIdExists(int userId)

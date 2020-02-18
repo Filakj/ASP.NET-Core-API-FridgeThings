@@ -136,7 +136,7 @@ namespace WhatYouGotAPI.Controllers
 
         //DELETE: api/Reviews/5
         [HttpDelete("{userId}/{recipeId}")]
-        public IActionResult DeleteReview(int userId, int recipeId)
+        public IActionResult DeleteFavoriteId(int userId, int recipeId)
         {
             if (!FavoriteExistsByUserIdAndRecipeId(userId, recipeId))
             {
