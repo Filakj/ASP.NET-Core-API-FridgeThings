@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
 <h4>Recipe of Id: {{recipeById.id}}</h4>
     <h4> Title: {{recipeById.title}} </h4>
     <br>
@@ -16,10 +16,10 @@
 
         </li>
     </ul>
-</div>
+</div> -->
 
 
-<div *ngIf='spInstructions != null'>
+<!-- <div *ngIf='spInstructions != null'>
     <h1>Instructions</h1>
     <ol>
         <div *ngFor = 'let instruction of spInstructions'>
@@ -28,12 +28,71 @@
             </li>
         </div>
     </ol>
-</div>
-
+</div> -->
+<!-- 
 <div *ngIf='spInstructions === null'>
     No instructions received from Spoonacular.
+</div> -->
+<!-- 
+<button routerLink="/review">Create Review</button>
+<button routerLink="/reviews">See Reviews</button> -->
+
+<!-- Bootstrap -->
+<div style="padding-bottom: 30px;">
+<div class="container">
+    <div class="row">
+      <div class="col-3">
+        <div *ngIf='ingredients != null'> 
+            <h4>    Ingredients: </h4>
+            <br>
+            <ul> 
+                <div *ngFor = 'let ing of ingredients'> 
+                    <td><img src="{{ing.imageUrl}}" class="img-responsive"/></td>
+                    {{ing.amount}}
+                    {{ing.unit}}
+                    {{ing.ingredientName}}
+        
+                </div>
+            </ul>
+        </div>
+      </div>
+      <div class="col-8 media">
+        <div class="media-body">
+            <h1 class="mt-0 mb-1">
+                {{recipeById.title}}
+            </h1>
+            <br>
+            <div style="text-align: center;">
+            <img style="display: inline-block;"src="{{recipeById.imageUrl}}" class="ml-3" alt="{{recipeById.title}}">
+            </div>
+            <br>
+            <div *ngIf='spInstructions != null'>
+                <h4>Instructions: </h4>
+                <ol>
+                    <div *ngFor = 'let instruction of spInstructions'>
+                        <li *ngFor = 'let step of instruction.steps'>
+                            {{step.step}}
+                        </li>
+                    </div>
+                </ol>
+            </div>
+            <br>
+            <span style="padding: 15px;">
+            <button class="btn btn-success" routerLink="/review">Create review</button>
+            </span>
+            <span style="padding: 15px;">
+            <button class="btn btn-primary" routerLink="/reviews">See reviews</button>
+            </span>
+        </div>
+
+    </div>
+    </div>
 </div>
 
-<button routerLink="/review">Create Review</button>
-<button routerLink="/reviews">See Reviews</button>
-<button class="add" (click)="addToFavorites(role, recipeById.id)">Add to Favorites</button>
+
+
+<div style="text-align: center; color: lightslategray;" *ngIf='spInstructions === null'>
+    <em>(No instructions received from Spoonacular)</em>
+</div>
+</div>
+

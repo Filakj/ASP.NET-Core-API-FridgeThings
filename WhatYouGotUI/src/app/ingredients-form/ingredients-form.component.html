@@ -1,33 +1,73 @@
-<h1 class="text-center">List your ingredients:</h1>
+<!-- <h3 class="text-center" style="padding: 10px;">List your ingredients:</h3>
 
-<form [formGroup]="ingredientsForm" (ngSubmit)="onSubmit(ingredientsForm)">
+<form style="text-align: center;" [formGroup]="ingredientsForm" (ngSubmit)="onSubmit(ingredientsForm)">
     <div> 
-    <input formControlName="ingredientsString" placeholder="chicken,cheese,fetticinni">
+    <input style="margin: 8px;" formControlName="ingredientsString" placeholder="chicken,cheese,fetticinni">
     </div>
     <div>
     <button  type="submit">Send</button>
     </div>
-  </form>
+  </form> -->
 
-  <div *ngIf='spRecipes != null'>
+  <!-- <div *ngIf='spRecipes != null'>
     <h1>Recipes</h1>
     <ul>
-        <li *ngFor = 'let recipe of spRecipes'>
-            Id: {{recipe.id}} 
-            <a routerLink="/recipe/{{recipe.id}}"  >Title: {{recipe.title}}  </a>
+        <div *ngFor = 'let recipe of spRecipes'>
+            <a routerLink="/recipe/{{recipe.id}}"><h3>Recipe: {{recipe.title}}</h3></a>
             <td><img src="{{recipe.image}}" class="img-responsive" /></td>
             <button (click)="postRecipes()"> Load Recipe</button>
-            <button (click)="parseIngredients()"> Load Recipe Ingredients</button>
-            <pre id='used'>usedingredients: {{recipe.usedIngredients | json}}</pre>
-            <pre id='missed'>missedingredients: {{recipe.missedIngredients| json}}</pre>
-            
-        </li>
+            <button (click)="parseIngredients()"> Load Recipe Ingredients</button> -->
+            <!-- <pre id='used'>usedingredients: {{recipe.usedIngredients | json}}</pre>
+            <pre id='missed'>missedingredients: {{recipe.missedIngredients| json}}</pre> -->
+            <!-- <br><br>
+        </div>
     </ul>
+</div> -->
+<!-- <div style="text-align: center; color: lightslategray;" *ngIf='spRecipes === null'>
+    <em>(No recipes received from Spoonacular)</em>
+</div> -->
+
+<!-- Bootstrap -->
+<div class="container">
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col-6">
+        <div style="margin: 20px;">
+            <form style="text-align: center;" [formGroup]="ingredientsForm" (ngSubmit)="onSubmit(ingredientsForm)">
+                <div class="form-group">
+                    <label for="ingredients"><h4>List your ingredients:</h4></label>
+                    <input style="text-align: center;" type="text" class="form-control form-control-lg" id="ingredients" formControlName="ingredientsString" placeholder="chicken,cheese,fettuccine">
+                </div>
+              <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </div>
+    <div class="col">
+    </div>
+   </div>
 </div>
 
-<div *ngIf='spRecipes === null'>
-    No recipes received from Spoonacular.
+<div style="text-align: center; color: lightslategray;" *ngIf='spRecipes === null'>
+    <em>(No recipes received from Spoonacular)</em>
 </div>
+
+<div style="text-align: center; margin: 50px" class="cards" *ngIf='spRecipes != null'>
+<span style="display: inline-block;" class="card card0" 
+        style="width: 18rem;" *ngFor = 'let recipe of spRecipes'>
+    <img src="{{recipe.image}}" class="card-img-top" alt="{{recipe.title}}">
+    <div class="card-body">
+      <h5 style="text-align: center;" class="card-title">{{recipe.title}}</h5>
+      <a *ngIf="loadedRecipe"
+            style="text-align: center;"routerLink="/recipe/{{recipe.id}}" class="btn btn-primary" (click)="loadRecipe()">See details</a>
+      <a *ngIf="!loadedRecipe"
+            style="text-align: center;" class="btn btn-primary" (click)="loadRecipe()">Load recipe</a>
+    </div>
+</span>
+</div>
+
+
+
 
 
 <!-- MATTS OLD FORM 

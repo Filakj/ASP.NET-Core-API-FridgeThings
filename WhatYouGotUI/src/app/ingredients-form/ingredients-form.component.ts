@@ -45,7 +45,7 @@ export class IngredientsFormComponent implements OnInit {
     });
 
     
-
+    this.loadedRecipe = false;
     //this.ingredientsString = "";
 
 
@@ -79,6 +79,13 @@ export class IngredientsFormComponent implements OnInit {
     console.log("values")
     //console.log(this.spRecipes.values)
     //this.postRecipes();
+  }
+
+  loadedRecipe: boolean;
+  loadRecipe() {
+    this.postRecipes();
+    this.parseIngredients();
+    this.loadedRecipe = true;
   }
 
   postRecipes(){ 
