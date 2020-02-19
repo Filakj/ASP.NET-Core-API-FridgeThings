@@ -3,30 +3,43 @@
 Technologies Used: 
 
 C#
+
 Entity Framework Core 
+
 ASP.NET CORE 
 
 SQL 
+
 SQL Server
+
 SSMS - Sql Server Managment Studio 
 
 Angular 
+
 Javascript 
+
 HTML 
+
 CSS 
 
 Node 
 
 Git
+
 Docker 
+
 DockerHub
 
 Azure Web Apps 
+
 Azure Pipelines 
+
 Azure DevOps 
 
 SonarCloud 
+
 Postman 
+
 Azure API Management 
 
 Spoonacular API
